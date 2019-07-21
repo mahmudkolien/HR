@@ -1,47 +1,45 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from '@nebular/auth';
+import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { RequestPasswordComponent } from './auth/request-password/request-password.component';
 
 const routes: Routes = [
   {
     path: 'pages',
-    loadChildren: () => import('app/pages/pages.module')
+    loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
   {
     path: 'auth',
-    component: NbAuthComponent,
+    component: AuthComponent,
     children: [
       {
         path: '',
-        component: NbLoginComponent,
+        component: LoginComponent,
       },
       {
         path: 'login',
-        component: NbLoginComponent,
+        component: LoginComponent,
       },
       {
         path: 'register',
-        component: NbRegisterComponent,
+        component: RegisterComponent,
       },
       {
         path: 'logout',
-        component: NbLogoutComponent,
+        component: LogoutComponent,
       },
       {
         path: 'request-password',
-        component: NbRequestPasswordComponent,
+        component: RequestPasswordComponent,
       },
       {
         path: 'reset-password',
-        component: NbResetPasswordComponent,
+        component: ResetPasswordComponent,
       },
     ],
   },

@@ -6,15 +6,11 @@ namespace HR.Entities.Core
 {
     public class AuditableEntity : Entity
     {
-        [Display(Name = "Created At")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
-        [Display(Name = "Updated At")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? UpdatedOn { get; set; }
 
         public Guid? CreatedById { get; set; }
         //[ForeignKey("CreatedById")]
@@ -25,8 +21,8 @@ namespace HR.Entities.Core
 
         public AuditableEntity()
         {
-            this.CreatedAt = DateTime.Now;
-            this.UpdatedAt = DateTime.Now;
+            this.CreatedOn = DateTime.Now;
+            this.UpdatedOn = DateTime.Now;
         }
     }
 }

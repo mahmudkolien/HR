@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -23,3 +23,4 @@ const routes: Routes = [
 })
 export class MiscellaneousRoutingModule {
 }
+

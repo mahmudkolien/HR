@@ -13,12 +13,14 @@ namespace HR.Entities
         public string UserName { get; set; }
         public string Email { get; set; }
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
         public string ImageFile { get; set; }
-        public int? RoleId { get; set; }
+        [Required]
+        public Guid RoleId { get; set; }
         [ForeignKey("RoleId")]
         public UserRole UserRole { get; set; }
         [DataType(DataType.Password)]

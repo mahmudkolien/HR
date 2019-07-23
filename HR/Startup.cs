@@ -1,6 +1,7 @@
 using AutoMapper;
 using HR.Mapping;
 using HR.Models;
+using HR.Core;
 using HR.Repository;
 using HR.Repository.Context;
 using HR.Repository.Contracts;

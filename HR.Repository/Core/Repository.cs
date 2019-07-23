@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -17,27 +18,66 @@ namespace HR.Repository.Core
             this.dbContext = dbContext;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync(bool includeRelated = false)
         {
-            return this.dbContext.Set<TEntity>()
-            .AsNoTracking().AsQueryable();
+            var query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if(includeRelated)
+            {
+                foreach (var property in this.dbContext.Model.FindEntityType(typeof(TEntity)).GetNavigations())
+                    query = query.Include(property.Name);
+            }
+
+            return await query.AsNoTracking().ToListAsync();
         }
 
-        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, bool includeRelated = false)
         {
-            return this.dbContext.Set<TEntity>()
-            .Where(predicate)
-            .AsNoTracking().AsQueryable();
+            var query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if(includeRelated)
+            {
+                foreach (var property in this.dbContext.Model.FindEntityType(typeof(TEntity)).GetNavigations())
+                    query = query.Include(property.Name);
+            }
+
+            return await query.Where(predicate).AsNoTracking().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(Guid id)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] properties)
         {
-            return await this.dbContext.Set<TEntity>()
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if(properties.Any())
+                query = properties.Aggregate(query, (current, property) => current.Include(property));
+
+            return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(Guid id, params Expression<Func<TEntity, object>>[] properties)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] properties)
+        {
+            var query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if(properties.Any())
+                query = properties.Aggregate(query, (current, property) => current.Include(property));
+
+            return await query.Where(predicate).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<TEntity> GetByIdAsync(Guid id, bool includeRelated = false)
+        {
+            var query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if(includeRelated)
+            {
+                foreach (var property in this.dbContext.Model.FindEntityType(typeof(TEntity)).GetNavigations())
+                    query = query.Include(property.Name);
+            }
+
+            return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<TEntity> GetByIdAsync(Guid id, params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -47,25 +87,47 @@ namespace HR.Repository.Core
             return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
         
-        public async Task Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await this.dbContext.Set<TEntity>().AddAsync(entity);
         }
+        
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            await this.dbContext.Set<TEntity>().AddRangeAsync(entities);
+        }
 
-        public async Task Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             this.dbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            var entity = await GetById(id);
+            var entity = await GetByIdAsync(id);
+            await this.DeleteAsync(entity);
+        }
+
+        public async Task DeleteAsync(TEntity entity)
+        {
+            entity.IsDeleted = true;
+            await this.UpdateAsync(entity);
+        }
+
+        public async Task DeleteFromDBAsync(Guid id)
+        {
+            var entity = await GetByIdAsync(id);
+            await this.DeleteFromDBAsync(entity);
+        }
+
+        public async Task DeleteFromDBAsync(TEntity entity)
+        {
             this.dbContext.Set<TEntity>().Remove(entity);
         }
 
-        public async Task Delete(TEntity entity)
+        public async Task DeleteRangeFromDBAsync(IEnumerable<TEntity> entities)
         {
-            this.dbContext.Set<TEntity>().Remove(entity);
+            this.dbContext.Set<TEntity>().RemoveRange(entities);
         }
     }
 }

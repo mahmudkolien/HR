@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
 
-namespace HR.Models
+namespace HR.Core
 {
     public class PhotoSettings
     {

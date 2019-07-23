@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HR.Entities\HR.Entities.csproj" />
+    <ProjectReference Include="..\HR.Repository\HR.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

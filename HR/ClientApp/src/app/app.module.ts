@@ -29,6 +29,8 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RequestPasswordComponent } from './auth/request-password/request-password.component';
+import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { RequestPasswordComponent } from './auth/request-password/request-passwo
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpModule,
     AppRoutingModule,
     AuthModule,
 

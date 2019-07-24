@@ -12,6 +12,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'User',
+    icon: 'people-outline',
+    link: '/pages/user',
+  },
+  {
     title: 'Miscellaneous',
     icon: 'shuffle-2-outline',
     children: [

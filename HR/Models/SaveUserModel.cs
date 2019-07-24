@@ -8,7 +8,7 @@ namespace HR.Models
     {
         public Guid Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string FullName { get; set; }
         [Required]
         public string UserName { get; set; }
         public string Email { get; set; }

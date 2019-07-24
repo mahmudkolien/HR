@@ -9,7 +9,8 @@ namespace HR.Mapping
         public MappingProfile()
         {
             // Domain To Model
-            CreateMap<User, UserModel>();
+            CreateMap<User, UserModel>()
+                .ForMember(dest => dest.UserRole, opt => opt.MapFrom(u => new KeyValuePairModel(){Id=u.UserRole.Id,Name=u.UserRole.RoleName}));
             CreateMap<User, SaveUserModel>();
 
             // Model To Domain

@@ -1,7 +1,4 @@
-import { Config } from './shared/config';
-import { AuthComponent } from './auth/auth.component';
-import { PagesModule } from './pages/pages.module';
-import { AuthModule } from './auth/auth.module';
+
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -24,13 +21,18 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+
+import { CommonModule } from '@angular/common';
+import { Config } from './shared/config';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
+
+import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RequestPasswordComponent } from './auth/request-password/request-password.component';
-import { HttpModule } from '@angular/http';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,6 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpModule,
     AppRoutingModule,
     AuthModule,
 

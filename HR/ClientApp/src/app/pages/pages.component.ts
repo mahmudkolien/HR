@@ -1,18 +1,14 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from './pages-menu';
 
 @Component({
-  selector: 'ngx-pages',
-  styleUrls: ['pages.component.scss'],
-  template: `
-    <ngx-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
-      <router-outlet></router-outlet>
-    </ngx-one-column-layout>
-  `,
+  selector: 'app-pages',
+  templateUrl: './pages.component.html',
+  // tslint:disable-next-line:trailing-comma
+  styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent {
 
   menu = MENU_ITEMS;
+
 }

@@ -7,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 
 @Component({
-  selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  // tslint:disable-next-line:trailing-comma
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
 

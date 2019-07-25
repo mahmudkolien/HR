@@ -1,8 +1,18 @@
+using AutoMapper;
+using HR.Mapping;
+using HR.Models;
+using HR.Core;
+using HR.Repository;
+using HR.Repository.Context;
+using HR.Repository.Contracts;
+using HR.Services;
+using HR.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +30,16 @@ namespace HR
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
+            
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+
+            services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
+            services.AddDbContext<HRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory

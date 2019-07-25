@@ -13,8 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Entityframeworkcore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Entityframeworkcore.design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Entityframeworkcore.sqlserver" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Entityframeworkcore.tools.dotnet" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +28,12 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HR.Entities\HR.Entities.csproj" />
+    <ProjectReference Include="..\HR.Repository\HR.Repository.csproj" />
+    <ProjectReference Include="..\HR.Services\HR.Services.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

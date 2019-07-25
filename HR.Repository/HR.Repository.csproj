@@ -6,6 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HR.Entities\HR.Entities.csproj" />
+    <ProjectReference Include="..\HR.Common\HR.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -171,11 +171,11 @@
   "defaultProject": "ngx-admin-demo",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "ngx",
+      "prefix": "app",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "ngx"
+      "prefix": "app"
     }
   }
 }

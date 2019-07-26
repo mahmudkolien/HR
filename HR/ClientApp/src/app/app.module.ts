@@ -43,7 +43,6 @@ import { RequestPasswordComponent } from './auth/request-password/request-passwo
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    AuthModule,
 
     ThemeModule.forRoot(),
 

@@ -30,7 +30,7 @@ export class UserService {
 
 
   update(user: ISaveUser) {
-    return this.http.put(this.usersEndpoint + '/' + user.Id, user)
+    return this.http.put(this.usersEndpoint + '/' + user.id, user)
       .pipe(map(res => res));
   }
 

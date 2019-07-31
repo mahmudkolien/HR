@@ -1,3 +1,5 @@
+import { UserRoleService } from './shared/user-role.service';
+import { FormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,6 +10,18 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 
 import { UserService } from './shared/user.service';
+import {
+  NbInputModule,
+  NbCardModule,
+  NbButtonModule,
+  NbActionsModule,
+  NbCheckboxModule,
+  NbRadioModule,
+  NbDatepickerModule,
+  NbSelectModule,
+  NbIconModule,
+  NbAlertModule} from '@nebular/theme';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +32,21 @@ import { UserService } from './shared/user.service';
   ],
   imports: [
     CommonModule,
+    NbInputModule,
+    NbCardModule,
+    NbButtonModule,
+    NbActionsModule,
+    NbCheckboxModule,
+    NbRadioModule,
+    NbDatepickerModule,
+    NbSelectModule,
+    NbIconModule,
+    FormsModule,
+    NbAlertModule,
   ],
   providers: [
     UserService,
+    UserRoleService,
   ],
 })
 export class UserModule { }

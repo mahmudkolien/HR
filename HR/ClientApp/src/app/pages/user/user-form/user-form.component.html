@@ -1,3 +1,159 @@
-<p>
-  user-form works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+
+      <form (ngSubmit)="onFormSubmit()" #form="ngForm" class="form-horizontal">
+<nb-card>
+  <nb-card-header>User Form</nb-card-header>
+
+
+<nb-card-body>
+
+  <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+    <p class="alert-title"><b>Error!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+  </nb-alert>
+
+  <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+    <p class="alert-title"><b>Success!</b></p>
+    <ul class="alert-message-list">
+      <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    </ul>
+  </nb-alert>
+
+  
+
+  <div class="row">
+      <div class="col-md-6">
+
+    <div class="form-group row">
+      <label class="label col-sm-3 form-control-label required-label" for="fullName">Full Name</label>
+      <div class="col-sm-9">
+      <input nbInput
+            [(ngModel)]="user.fullName"
+            #fullName="ngModel"
+            id="fullName"
+            name="fullName"
+            placeholder="Full Name"
+            autofocus
+            fullWidth
+            fieldSize="medium"
+            [status]="fullName.dirty ? (fullName.invalid  ? 'danger' : 'success') : ''"
+            required
+            [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
+      <ng-container *ngIf="fullName.invalid && fullName.touched">
+        <p class="caption status-danger" *ngIf="fullName.errors?.required">
+          Full name is required!
+        </p>
+      </ng-container>
+    </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="label col-sm-3 form-control-label required-label" for="email">Email</label>
+      <div class="col-sm-9">
+      <input nbInput
+            [(ngModel)]="user.email"
+            #email="ngModel"
+            id="email"
+            name="email"
+            pattern=".+@.+..+"
+            placeholder="Email"
+            fullWidth
+            fieldSize="medium"
+            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+            required
+            [attr.aria-invalid]="email.invalid && email.touched ? true : null">
+      <ng-container *ngIf="email.invalid && email.touched">
+        <p class="caption status-danger" *ngIf="email.errors?.required">
+          Email is required!
+        </p>
+        <p class="caption status-danger" *ngIf="email.errors?.pattern">
+          Email should be the real one!
+        </p>
+      </ng-container>
+    </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="label col-sm-3 form-control-label required-label" for="userName">User Name</label>
+        <div class="col-sm-9">
+        <input nbInput
+              [(ngModel)]="user.userName"
+              #userName="ngModel"
+              id="userName"
+              name="userName"
+              placeholder="User Name"
+              fullWidth
+              fieldSize="medium"
+              [status]="userName.dirty ? (userName.invalid  ? 'danger' : 'success') : ''"
+              required
+              [attr.aria-invalid]="userName.invalid && userName.touched ? true : null">
+        <ng-container *ngIf="userName.invalid && userName.touched">
+          <p class="caption status-danger" *ngIf="userName.errors?.required">
+            User name is required!
+          </p>
+        </ng-container>
+      </div>
+      </div>
+
+      <div class="form-group row">
+          <label class="label col-sm-3 form-control-label required-label" for="userRoleId">User Role</label>
+          <div class="col-sm-9">
+          <nb-select
+                [(ngModel)]="user.userRoleId"
+                #userRoleId="ngModel"
+                id="userRoleId"
+                name="userRoleId"
+                fullWidth
+                fieldSize="medium"
+                [status]="userRoleId.dirty ? (userRoleId.invalid  ? 'danger' : 'success') : ''"
+                required
+                [attr.aria-invalid]="userRoleId.invalid && userRoleId.touched ? true : null">
+                <nb-option value="">--Select--</nb-option>
+                <nb-option *ngFor="let role of userRoles" [value]="role.id">{{ role.roleName }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="userRoleId.invalid && userRoleId.touched">
+            <p class="caption status-danger" *ngIf="userRoleId.errors?.required">
+              User role is required!
+            </p>
+          </ng-container>
+        </div>
+        </div>
+
+  </div>
+  <div class="col-md-6">
+
+  </div>
+</div>
+</nb-card-body>
+<nb-card-footer>
+  <div class="row">
+    <div class="col-md-12">
+  <div class="d-flex">
+    <button type="button"
+            nbButton
+            status="default"
+            size="medium">
+      Cancel
+    </button>
+
+    <button type="submit" class="ml-auto"
+            nbButton
+            status="primary"
+            size="medium"
+            [disabled]="submitted || !form.valid">
+      Save
+    </button>
+  </div>
+</div>
+</div>
+</nb-card-footer>
+
+</nb-card>
+
+</form>
+
+</div>
+</div>

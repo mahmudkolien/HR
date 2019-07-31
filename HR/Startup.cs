@@ -33,8 +33,11 @@ namespace HR
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
             
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRoleService, UserRoleService>();
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
 
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));

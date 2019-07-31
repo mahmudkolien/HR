@@ -1,5 +1,5 @@
 
 export interface KeyValuePair {
-    Id: string;
-    Name: string;
+    id: string;
+    name: string;
 }

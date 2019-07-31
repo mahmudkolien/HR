@@ -50,11 +50,15 @@ namespace HR.Controllers
             if (user == null)
                 return NotFound();
 
-            var updateUser = mapper.Map<SaveUserModel, User>(userModel);
+            //var updateUser = mapper.Map<SaveUserModel, User>(userModel);
+            //var updateUserId = await this.userService.UpdateAsync(updateUser);
+            //user = await this.userService.GetByIdAsync(updateUserId);
 
-            var updateUserId = await this.userService.UpdateAsync(updateUser);
+            mapper.Map<SaveUserModel, User>(userModel, user);
+            
+            var userId = await this.userService.UpdateAsync(user);
 
-            user = await this.userService.GetByIdAsync(updateUserId);
+            user = await this.userService.GetByIdAsync(userId);
             
             var result = mapper.Map<User, UserModel>(user);
 

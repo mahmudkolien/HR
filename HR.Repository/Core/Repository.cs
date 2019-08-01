@@ -18,7 +18,7 @@ namespace HR.Repository.Core
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(bool includeRelated = false)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(bool includeRelated = false)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -31,7 +31,7 @@ namespace HR.Repository.Core
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, bool includeRelated = false)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, bool includeRelated = false)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -44,7 +44,7 @@ namespace HR.Repository.Core
             return await query.Where(predicate).AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] properties)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -54,7 +54,7 @@ namespace HR.Repository.Core
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] properties)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -64,7 +64,7 @@ namespace HR.Repository.Core
             return await query.Where(predicate).AsNoTracking().ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id, bool includeRelated = false)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id, bool includeRelated = false)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -77,7 +77,7 @@ namespace HR.Repository.Core
             return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id, params Expression<Func<TEntity, object>>[] properties)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id, params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
 
@@ -87,45 +87,45 @@ namespace HR.Repository.Core
             return await query.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
         
-        public async Task AddAsync(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
             await this.dbContext.Set<TEntity>().AddAsync(entity);
         }
         
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await this.dbContext.Set<TEntity>().AddRangeAsync(entities);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public virtual async Task UpdateAsync(TEntity entity)
         {
             this.dbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
             var entity = await GetByIdAsync(id);
             await this.DeleteAsync(entity);
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public virtual async Task DeleteAsync(TEntity entity)
         {
             entity.IsDeleted = true;
             await this.UpdateAsync(entity);
         }
 
-        public async Task DeleteFromDBAsync(Guid id)
+        public virtual async Task DeleteFromDBAsync(Guid id)
         {
             var entity = await GetByIdAsync(id);
             await this.DeleteFromDBAsync(entity);
         }
 
-        public async Task DeleteFromDBAsync(TEntity entity)
+        public virtual async Task DeleteFromDBAsync(TEntity entity)
         {
             this.dbContext.Set<TEntity>().Remove(entity);
         }
 
-        public async Task DeleteRangeFromDBAsync(IEnumerable<TEntity> entities)
+        public virtual async Task DeleteRangeFromDBAsync(IEnumerable<TEntity> entities)
         {
             this.dbContext.Set<TEntity>().RemoveRange(entities);
         }

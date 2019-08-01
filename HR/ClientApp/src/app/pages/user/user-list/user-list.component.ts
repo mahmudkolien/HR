@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { IUser } from '../shared/user.model';
@@ -11,7 +12,7 @@ export class UserListComponent implements OnInit {
 
   users: IUser[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(data => this.users = <IUser[]>data);

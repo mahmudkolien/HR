@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using HR.Entities;
 using HR.Repository.Context;
 using HR.Repository.Contracts;

@@ -22,6 +22,7 @@ import {
   NbIconModule,
   NbAlertModule} from '@nebular/theme';
 import { LayoutModule } from '../layout/layout.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { LayoutModule } from '../layout/layout.module';
     NbIconModule,
     FormsModule,
     NbAlertModule,
+    RouterModule,
   ],
   providers: [
     UserService,

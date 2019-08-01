@@ -17,7 +17,8 @@ namespace HR.Mapping
 
             // Model To Domain
             CreateMap<SaveUserModel, User>()
-                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(u => u.UserRoleId));
+                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(u => u.UserRoleId))
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         }
     }

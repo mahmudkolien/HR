@@ -24,7 +24,6 @@ namespace HR.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] SaveUserModel userModel)
         {
-            
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

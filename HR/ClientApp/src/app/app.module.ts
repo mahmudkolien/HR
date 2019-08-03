@@ -6,7 +6,7 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
@@ -33,6 +33,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RequestPasswordComponent } from './auth/request-password/request-password.component';
+import { AppErrorHandler } from './app.error-handler';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,10 @@ import { RequestPasswordComponent } from './auth/request-password/request-passwo
     }),
     CoreModule.forRoot(),
   ],
-  providers: [Config],
+  providers: [
+    {provide: ErrorHandler, useClass: AppErrorHandler},
+    Config,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

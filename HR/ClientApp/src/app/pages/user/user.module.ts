@@ -23,6 +23,7 @@ import {
   NbAlertModule} from '@nebular/theme';
 import { LayoutModule } from '../layout/layout.module';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     NbAlertModule,
     RouterModule,
+    NgxPaginationModule,
   ],
   providers: [
     UserService,

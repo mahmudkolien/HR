@@ -6,29 +6,34 @@
       User List
       <div class="ml-auto">
         <nb-actions size="small">
-          <nb-action [routerLink]="['/pages/user/form']">New User</nb-action>
+          <nb-action  icon="plus-square-outline" [routerLink]="['/pages/user/form']"></nb-action>
         </nb-actions>
       </div>
     </div>
   </nb-card-header>
 <nb-card-body>
-<table class="table table-bordered table-hover">
+<table class="table table-sm table-bordered table-hover">
   <thead>
     <tr>
-      <th>Id</th>
+      <th class="serial">#</th>
       <th>Name</th>
       <th>User Name</th>
       <th>Email</th>
+      <th>Role</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
+    <tr *ngFor="let user of users | paginate: { currentPage: currentPage, itemsPerPage: itemsPerPage, totalItems: totalItems }; let i = index">
+      <td class="serial">{{ itemsPerPage * (currentPage - 1) + (i+1) }}</td>
       <td>{{ user.fullName }}</td>
       <td>{{ user.userName }}</td>
       <td>{{ user.email }}</td>
+      <td>{{ user.userRole.name }}</td>
     </tr>
   </tbody>
 </table>
+<div class="text-center">
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</div>
 </nb-card-body>
 </nb-card>

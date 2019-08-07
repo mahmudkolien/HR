@@ -21,12 +21,6 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { UserModule } from './user/user.module';
 import { CommonModule } from '@angular/common';
 
-import { UserComponent } from './user/user.component';
-import { UserListComponent } from './user/user-list/user-list.component';
-import { UserFormComponent } from './user/user-form/user-form.component';
-import { ViewUserComponent } from './user/view-user/view-user.component';
-import { FormsModule } from '@angular/forms';
-
 @NgModule({
   imports: [
     PagesRoutingModule,

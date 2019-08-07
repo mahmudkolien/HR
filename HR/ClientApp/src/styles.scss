@@ -1,0 +1,10 @@
+.serial {
+    width: 3%;
+    text-align: center;
+  }
+
+.required-label::after {
+  content: '*';
+  color: red;
+  opacity: .75;
+}

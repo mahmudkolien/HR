@@ -1,5 +1,5 @@
 
-export interface KeyValuePair {
+export interface IKeyValuePair {
     id: string;
     name: string;
 }

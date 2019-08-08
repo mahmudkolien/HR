@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HR.Entities.Core;
+using HR.Entities.NotMapped;
 using HR.Repository.Contracts;
 using HR.Repository.Core;
 
@@ -38,7 +39,7 @@ namespace HR.Services.Core
             return await this.unitOfWork.CompleteAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync()
         {
             return await this.repository.GetAllAsync();
         }

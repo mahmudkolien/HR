@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using HR.Entities;
+using HR.Entities.NotMapped;
 using HR.Models;
+using HR.Models.QueryModels;
 using HR.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -91,11 +93,13 @@ namespace HR.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserModel>> GetUsers()
+        public async Task<QueryResultModel<UserModel>> GetUsers(UserQueryModel queryModel)
         {
-            var result = await this.userService.GetAllAsync();
+            var query = mapper.Map<UserQueryModel, UserQuery>(queryModel);
+            
+            var result = await this.userService.GetAllAsync(query);
 
-            return mapper.Map<IEnumerable<User>, IEnumerable<UserModel>>(result);
+            return mapper.Map<QueryResult<User>, QueryResultModel<UserModel>>(result);
         }
     }
 }

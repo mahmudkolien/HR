@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { NbToastrService } from '@nebular/theme';
 import { throwError } from 'rxjs';
+import { IQueryResult } from '../../shared/query-result.model';
 
 @Component({
   selector: 'app-user-form',
@@ -16,14 +17,7 @@ import { throwError } from 'rxjs';
 })
 export class UserFormComponent implements OnInit {
 
-  user: ISaveUser = {
-    id: '',
-    fullName: '',
-    userName: '',
-    email: '',
-    userRoleId: '',
-    isDeleted: false,
-  };
+  user: ISaveUser;
   userRoles: IUserRole[] = [];
   submitted: boolean = false;
   errors: string[] = [];
@@ -33,26 +27,44 @@ export class UserFormComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userRoleService: UserRoleService,
-    private toastrService: NbToastrService) { }
+    private toastrService: NbToastrService) {
+      this.resetForm();
+    }
 
   ngOnInit() {
     this.userRoleService.getUserRoles().subscribe(data => {
-      this.userRoles = <IUserRole[]>data;
+      this.userRoles = (<IQueryResult>data).items;
     });
   }
 
-  onFormSubmit() {
+  onFormSubmit(form) {
     if (this.user.id) {
       this.userService.update(this.user).subscribe(
         data => {
           this.toastrService.success('User has been successfully updated.', 'Successfully updated.');
+          this.resetForm(form);
         });
     } else {
       this.userService.create(this.user).subscribe(
         data => {
           this.toastrService.success('User has been successfully added.', 'Successfully added.');
+          this.resetForm(form);
         });
     }
+  }
+
+  resetForm(form?) {
+    if (form)
+      form.resetForm();
+
+    this.user = {
+      id: '',
+      fullName: '',
+      userName: '',
+      email: '',
+      userRoleId: '',
+      isDeleted: false,
+    };
   }
 
 }

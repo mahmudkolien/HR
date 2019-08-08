@@ -1,6 +1,8 @@
 
 export class Shared {
 
+  public readonly PAGE_SIZE = 5;
+
   toQueryString(obj) {
     // tslint:disable-next-line: prefer-const
     let parts = [];

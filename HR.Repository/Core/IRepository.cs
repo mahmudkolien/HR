@@ -4,18 +4,33 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HR.Entities.Core;
+using HR.Entities.NotMapped;
 
 namespace HR.Repository.Core
 {
     public interface IRepository<TEntity> where TEntity : Entity
     {
-        Task<IEnumerable<TEntity>> GetAllAsync(bool includeRelated = false);
+        Task<QueryResult<TEntity>> GetAllAsync(
+            bool includeRelated = false,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null);
         
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, bool includeRelated = false);
+        Task<QueryResult<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>> predicate, 
+            bool includeRelated = false,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null);
         
-        Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] properties);
+        Task<QueryResult<TEntity>> GetAllAsync(
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null,
+            params Expression<Func<TEntity, object>>[] properties);
         
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] properties);
+        Task<QueryResult<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null,
+            params Expression<Func<TEntity, object>>[] properties);
  
         Task<TEntity> GetByIdAsync(Guid id, bool includeRelated = false);
 

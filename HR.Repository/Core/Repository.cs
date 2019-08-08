@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HR.Entities.Core;
+using HR.Entities.NotMapped;
 using HR.Repository.Context;
+using HR.Repository.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HR.Repository.Core
@@ -18,9 +20,13 @@ namespace HR.Repository.Core
             this.dbContext = dbContext;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(bool includeRelated = false)
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync(
+            bool includeRelated = false,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
+            var result = new QueryResult<TEntity>();
 
             if(includeRelated)
             {
@@ -28,12 +34,22 @@ namespace HR.Repository.Core
                     query = query.Include(property.Name);
             }
 
-            return await query.AsNoTracking().ToListAsync();
+            result.TotalItems = await query.CountAsync();
+            query = query.ApplyOrdering(queryObj, columnsMap);
+            query = query.ApplyPaging(queryObj);
+            result.Items = await query.AsNoTracking().ToListAsync();
+
+            return result;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, bool includeRelated = false)
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            bool includeRelated = false,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
+            var result = new QueryResult<TEntity>();
 
             if(includeRelated)
             {
@@ -41,27 +57,53 @@ namespace HR.Repository.Core
                     query = query.Include(property.Name);
             }
 
-            return await query.Where(predicate).AsNoTracking().ToListAsync();
+            query = query.Where(predicate);
+            result.TotalItems = await query.CountAsync();
+            query = query.ApplyOrdering(queryObj, columnsMap);
+            query = query.ApplyPaging(queryObj);
+            result.Items = await query.AsNoTracking().ToListAsync();
+
+            return result;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] properties)
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync(
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null,
+            params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
+            var result = new QueryResult<TEntity>();
 
             if(properties.Any())
                 query = properties.Aggregate(query, (current, property) => current.Include(property));
 
-            return await query.AsNoTracking().ToListAsync();
+            result.TotalItems = await query.CountAsync();
+            query = query.ApplyOrdering(queryObj, columnsMap);
+            query = query.ApplyPaging(queryObj);
+            result.Items = await query.AsNoTracking().ToListAsync();
+
+            return result;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] properties)
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>> predicate,
+            IQueryObject queryObj = null,
+            Dictionary<string, Expression<Func<TEntity, object>>> columnsMap = null,
+            params Expression<Func<TEntity, object>>[] properties)
         {
             var query = this.dbContext.Set<TEntity>().AsQueryable();
+            var result = new QueryResult<TEntity>();
 
             if(properties.Any())
                 query = properties.Aggregate(query, (current, property) => current.Include(property));
 
-            return await query.Where(predicate).AsNoTracking().ToListAsync();
+            query = query.Where(predicate);
+            result.TotalItems = await query.CountAsync();
+            query = query.ApplyOrdering(queryObj, columnsMap);
+            query = query.ApplyPaging(queryObj);
+            result.Items = await query.AsNoTracking().ToListAsync();
+
+            return result;
         }
 
         public virtual async Task<TEntity> GetByIdAsync(Guid id, bool includeRelated = false)

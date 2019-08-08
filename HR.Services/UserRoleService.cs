@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HR.Common;
 using HR.Entities;
+using HR.Entities.NotMapped;
 using HR.Repository.Contracts;
 using HR.Repository.Core;
 using HR.Services.Contracts;
@@ -20,9 +21,9 @@ namespace HR.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public override async Task<IEnumerable<UserRole>> GetAllAsync()
+        public override async Task<QueryResult<UserRole>> GetAllAsync()
         {
-            return  await this.repository.GetAllAsync(x => x.Status != (int)EnumUserRoleStatus.SuperAdmin);
+            return  await this.repository.GetAllAsync(x => !x.IsDeleted && x.Status != (int)EnumUserRoleStatus.SuperAdmin);
         }
     }
 }

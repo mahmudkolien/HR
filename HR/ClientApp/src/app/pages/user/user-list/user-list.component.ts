@@ -1,3 +1,5 @@
+import { ViewUserComponent } from './../view-user/view-user.component';
+import { NbDialogService } from '@nebular/theme';
 import { PaginationConfig } from './../../shared/pagination-config.model';
 import { IUserQuery } from './../shared/user.model';
 import { Router } from '@angular/router';
@@ -6,6 +8,7 @@ import { UserService } from '../shared/user.service';
 import { IUser } from '../shared/user.model';
 import { IQueryResult } from '../../shared/query-result.model';
 import { Shared } from '../../shared/shared';
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +24,12 @@ export class UserListComponent implements OnInit {
   queryResult: IQueryResult;
   columns: any[];
 
-  constructor(private userService: UserService, private router: Router, private shared: Shared) {
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private dialogService: NbDialogService,
+    private shared: Shared) {
+
     this.PAGE_SIZE = this.shared.PAGE_SIZE;
     this.initiateColumns();
     this.initiateQuery();
@@ -105,6 +113,23 @@ export class UserListComponent implements OnInit {
 
   absoluteSerial(indexOnPage: number): number {
     return this.paginationConfig.itemsPerPage * (this.paginationConfig.currentPage - 1) + (indexOnPage + 1);
+  }
+
+  showDetails(id) {
+    this.dialogService.open(ViewUserComponent, {
+      context: {
+        id: id,
+      },
+    });
+  }
+
+  onDelete(id) {
+    this.dialogService.open(DeleteUserComponent, {
+      context: {
+        id: id,
+      },
+      closeOnBackdropClick: false,
+    }).onClose.subscribe(data => this.populateUsers());
   }
 
 }

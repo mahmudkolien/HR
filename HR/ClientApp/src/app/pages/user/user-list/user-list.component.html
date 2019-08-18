@@ -5,9 +5,12 @@
     <div class="d-flex">
       User List
       <div class="ml-auto">
-        <nb-actions size="small">
-          <nb-action  icon="plus-square-outline" [routerLink]="['/pages/user/form']"></nb-action>
-        </nb-actions>
+        <!-- <nb-actions size="small">
+          <nb-action  icon="plus-square-outline" [routerLink]="['/pages/user/new']"></nb-action>
+        </nb-actions> -->
+        <button nbButton size="tiny" shape="rectangle" status="primary" [routerLink]="['/pages/user/new']">
+          <nb-icon icon="plus-square-outline" title="New User"></nb-icon>
+        </button>
       </div>
     </div>
   </nb-card-header>
@@ -40,7 +43,17 @@
           <td>{{ user.userName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.userRole.name }}</td>
-          <td></td>
+          <td>
+            <button nbButton size="tiny" ghost status="info" (click)="showDetails(user.id)">
+              <nb-icon icon="eye-outline" title="Details"></nb-icon>
+            </button>
+            <button nbButton size="tiny" ghost status="primary" [routerLink]="['/pages/user/edit/', user.id]">
+              <nb-icon icon="edit-outline" title="Edit"></nb-icon>
+            </button>
+            <button nbButton size="tiny" ghost status="danger" (click)="onDelete(user.id)">
+              <nb-icon icon="trash-outline" title="Delete"></nb-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngIf="!queryResult || queryResult.items.length==0">
           <td class="text-center" colspan="6">No data</td>

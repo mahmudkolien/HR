@@ -20,10 +20,12 @@ import {
   NbDatepickerModule,
   NbSelectModule,
   NbIconModule,
-  NbAlertModule} from '@nebular/theme';
+  NbAlertModule,
+  NbDialogModule} from '@nebular/theme';
 import { LayoutModule } from '../layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UserListComponent,
     UserFormComponent,
     ViewUserComponent,
+    DeleteUserComponent,
   ],
   imports: [
     CommonModule,
@@ -47,10 +50,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NbAlertModule,
     RouterModule,
     NgxPaginationModule,
+    NbDialogModule.forChild(),
   ],
   providers: [
     UserService,
     UserRoleService,
+  ],
+  entryComponents: [
+    ViewUserComponent,
+    DeleteUserComponent,
   ],
 })
 export class UserModule { }

@@ -45,5 +45,10 @@ namespace HR.Services
                 (string.IsNullOrWhiteSpace(query.Name) || x.FullName.Contains(query.Name)), 
                 query, columnsMap, x => x.UserRole);
         }
+
+        public override async Task<User> GetByIdAsync(Guid id)
+        {
+            return await this.repository.GetByIdAsync(id, x => x.UserRole);
+        }
     }
 }

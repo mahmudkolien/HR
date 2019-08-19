@@ -1,5 +1,5 @@
 import { ViewUserComponent } from './../view-user/view-user.component';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { PaginationConfig } from './../../shared/pagination-config.model';
 import { IUserQuery } from './../shared/user.model';
 import { Router } from '@angular/router';
@@ -28,7 +28,8 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private dialogService: NbDialogService,
-    private shared: Shared) {
+    private shared: Shared,
+    private toastrService: NbToastrService) {
 
     this.PAGE_SIZE = this.shared.PAGE_SIZE;
     this.initiateColumns();
@@ -56,7 +57,7 @@ export class UserListComponent implements OnInit {
       { title: 'User Name', key: 'userName', isSortable: true },
       { title: 'Email', key: 'email', isSortable: true },
       { title: 'User Role' },
-      { title: '#' },
+      { title: '###' },
     ];
   }
 
@@ -123,13 +124,19 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onDelete(id) {
+  onDelete(id, name) {
     this.dialogService.open(DeleteUserComponent, {
       context: {
         id: id,
+        name: name,
       },
       closeOnBackdropClick: false,
-    }).onClose.subscribe(data => this.populateUsers());
+    }).onClose.subscribe(data => {
+      if (data) {
+        this.toastrService.success(name + '\'s data has been successfully deleted.', 'Successfully deleted.');
+        this.populateUsers();
+      }
+    });
   }
 
 }

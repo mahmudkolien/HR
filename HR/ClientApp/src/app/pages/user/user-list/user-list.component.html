@@ -43,15 +43,15 @@
           <td>{{ user.userName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.userRole.name }}</td>
-          <td>
-            <button nbButton size="tiny" ghost status="info" (click)="showDetails(user.id)">
+          <td class="text-center">
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="info" (click)="showDetails(user.id)">
               <nb-icon icon="eye-outline" title="Details"></nb-icon>
             </button>
-            <button nbButton size="tiny" ghost status="primary" [routerLink]="['/pages/user/edit/', user.id]">
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="primary" [routerLink]="['/pages/user/edit/', user.id]">
               <nb-icon icon="edit-outline" title="Edit"></nb-icon>
             </button>
-            <button nbButton size="tiny" ghost status="danger" (click)="onDelete(user.id)">
-              <nb-icon icon="trash-outline" title="Delete"></nb-icon>
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="danger" (click)="onDelete(user.id, user.fullName)">
+              <nb-icon icon="trash-2-outline" title="Delete"></nb-icon>
             </button>
           </td>
         </tr>

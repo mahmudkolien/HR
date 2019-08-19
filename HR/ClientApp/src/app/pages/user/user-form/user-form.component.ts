@@ -3,12 +3,13 @@ import { UserRoleService } from './../shared/user-role.service';
 import { IUserRole } from './../shared/user-role.model';
 
 import { Component, OnInit, ChangeDetectorRef, ErrorHandler } from '@angular/core';
-import { ISaveUser } from '../shared/user.model';
-import { Router } from '@angular/router';
+import { ISaveUser, IUser } from '../shared/user.model';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { NbToastrService } from '@nebular/theme';
 import { throwError } from 'rxjs';
 import { IQueryResult } from '../../shared/query-result.model';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-form',
@@ -25,6 +26,8 @@ export class UserFormComponent implements OnInit {
   messages: string[] = [];
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private userRoleService: UserRoleService,
     private toastrService: NbToastrService) {
@@ -35,6 +38,7 @@ export class UserFormComponent implements OnInit {
     this.userRoleService.getUserRoles().subscribe(data => {
       this.userRoles = (<IQueryResult>data).items;
     });
+    this.populateUser();
   }
 
   onFormSubmit(form) {
@@ -43,6 +47,7 @@ export class UserFormComponent implements OnInit {
         data => {
           this.toastrService.success('User has been successfully updated.', 'Successfully updated.');
           this.resetForm(form);
+          this.populateUser();
         });
     } else {
       this.userService.create(this.user).subscribe(
@@ -63,6 +68,33 @@ export class UserFormComponent implements OnInit {
       userName: '',
       email: '',
       userRoleId: '',
+      isDeleted: false,
+    };
+  }
+
+  populateUser() {
+    // get observable with user
+    // const user$ = this.route.paramMap.pipe(
+    //   switchMap((params: ParamMap) =>
+    //     this.userService.getUser(params.get('id'))),
+    // );
+
+    // get id
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.userService.getUser(id).subscribe(data => {
+        this.setUser(<IUser>data);
+      });
+    }
+  }
+
+  setUser(user: IUser) {
+    this.user = {
+      id: user.id,
+      fullName: user.fullName,
+      userName: user.userName,
+      email: user.email,
+      userRoleId: user.userRole.id,
       isDeleted: false,
     };
   }

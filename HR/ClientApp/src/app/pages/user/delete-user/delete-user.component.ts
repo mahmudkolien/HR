@@ -10,6 +10,7 @@ import { NbDialogRef } from '@nebular/theme';
 export class DeleteUserComponent implements OnInit {
 
   @Input() id: any;
+  @Input() name: any;
 
   constructor(
     private userService: UserService,

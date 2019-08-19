@@ -1,11 +1,15 @@
 <nb-card>
-    <nb-card-header>Enter your name</nb-card-header>
+    <nb-card-header><span class="text-danger">Confirmation</span></nb-card-header>
     <nb-card-body>
-      Are you sure want to delete this user?
+      Are you sure want to delete <span class="text-danger">{{ name }}'s</span> data?
     </nb-card-body>
     <nb-card-footer>
-      <button nbButton status="default" (click)="cancel()">Cancel</button>
-      <button nbButton status="success" (click)="confirm()">Confirm</button>
+      <div class="d-flex">
+          <button nbButton size="small" status="default" (click)="cancel()">Cancel</button>
+          <div class="ml-auto">
+            <button nbButton size="small" status="danger" (click)="confirm()">Confirm</button>
+          </div>
+      </div>
     </nb-card-footer>
   </nb-card>
   

@@ -30,6 +30,12 @@ namespace HR.Services
             return  await base.AddAsync(entity);
         }
 
+        public override async Task<Guid> UpdateAsync(User entity)
+        {
+            entity.UpdatedOn = DateTime.Now;
+            return  await base.UpdateAsync(entity);
+        }
+
         public async Task<QueryResult<User>> GetAllAsync(UserQuery query)
         {
             var columnsMap = new Dictionary<string, Expression<Func<User, object>>>()

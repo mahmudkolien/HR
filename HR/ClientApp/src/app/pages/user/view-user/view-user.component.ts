@@ -30,13 +30,8 @@ export class ViewUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    // tslint:disable-next-line:no-console
     this.userService.getUser(this.id).subscribe(data => {
       this.user = <IUser>data;
-      // tslint:disable-next-line:no-console
-      console.log(this.id);
-      // tslint:disable-next-line:no-console
-      console.log(this.user);
     });
   }
 

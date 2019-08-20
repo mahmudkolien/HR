@@ -12,6 +12,9 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalModule } from 'ngb-modal';
+
+
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -20,6 +23,7 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+
 } from '@nebular/theme';
 
 import { CommonModule } from '@angular/common';
@@ -33,10 +37,12 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RequestPasswordComponent } from './auth/request-password/request-password.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent,
+    
     ],
   imports: [
     BrowserModule,
@@ -44,7 +50,8 @@ import { RequestPasswordComponent } from './auth/request-password/request-passwo
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-
+    ModalModule,
+    HttpModule,
     ThemeModule.forRoot(),
 
     NbSidebarModule.forRoot(),

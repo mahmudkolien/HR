@@ -12,9 +12,12 @@ namespace HR.Mapping
             CreateMap<User, UserModel>()
                 .ForMember(dest => dest.UserRole, opt => opt.MapFrom(u => new KeyValuePairModel(){Id=u.UserRole.Id,Name=u.UserRole.RoleName}));
             CreateMap<User, SaveUserModel>();
+            CreateMap<Department,DepartmentModel>();
+            CreateMap<Department,DepartmentSaveModel>();
 
             // Model To Domain
             CreateMap<SaveUserModel, User>();
+            CreateMap<DepartmentSaveModel,Department>();
 
         }
     }

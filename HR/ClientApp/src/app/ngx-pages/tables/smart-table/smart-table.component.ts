@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-
 import { SmartTableData } from '../../../@core/data/smart-table';
 
 @Component({
@@ -54,7 +53,8 @@ export class SmartTableComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
-
+  isHideSubHeader :boolean =false;
+  isMultiSelectVisible:boolean=false;
   constructor(private service: SmartTableData) {
     const data = this.service.getData();
     this.source.load(data);
@@ -67,4 +67,8 @@ export class SmartTableComponent {
       event.confirm.reject();
     }
   }
+  createConfirm():void{
+
+  }
+
 }

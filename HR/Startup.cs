@@ -36,6 +36,10 @@ namespace HR
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+            //Department
+            services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();
+            services.AddTransient<IDepartmentService,DepartmentService>();
 
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             services.AddDbContext<HRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));

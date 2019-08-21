@@ -4,10 +4,10 @@ using HR.Repository.Contracts;
 
 namespace HR.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class DepartmentUnitOfWork : IUnitOfWork
     {
         private readonly HRDbContext context;
-        public UnitOfWork(HRDbContext context)
+        public DepartmentUnitOfWork(HRDbContext context)
         {
             this.context = context;
         }

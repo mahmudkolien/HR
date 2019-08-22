@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
+using HR.Core;
 using HR.Entities;
 using HR.Entities.NotMapped;
 using HR.Models;
 using HR.Models.QueryModels;
 using HR.Services.Contracts;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace HR.Controllers
 {
@@ -16,20 +20,37 @@ namespace HR.Controllers
     {
         private readonly IUserService userService;
         private readonly IMapper mapper;
+        private readonly IHostingEnvironment host;
+        private readonly PhotoSettings photoSettings;
+        private readonly IPhotoStorage photoStorage;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IHostingEnvironment host, IOptionsSnapshot<PhotoSettings> options, IPhotoStorage photoStorage, IUserService userService, IMapper mapper)
         {
             this.userService = userService;
             this.mapper = mapper;
+            this.photoSettings = options.Value;
+            this.host = host;
+            this.photoStorage = photoStorage;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] SaveUserModel userModel)
+        public async Task<IActionResult> CreateUser([FromForm] SaveUserModel userModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var user = mapper.Map<SaveUserModel, User>(userModel);
+
+            if (userModel.InputFile!=null)
+            {
+                if (userModel.InputFile == null) return BadRequest("Null file");
+                if (userModel.InputFile.Length == 0) return BadRequest("Empty file");
+                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest("Max file size exceeded");
+                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest("Invalid file type.");
+                var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
+                var image = await photoStorage.StorePhoto(uploadsFolderPath, userModel.InputFile);
+                user.ImageFile = image;
+            }
 
             var userId = await this.userService.AddAsync(user);
 
@@ -41,7 +62,7 @@ namespace HR.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] SaveUserModel userModel)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromForm] SaveUserModel userModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,6 +77,17 @@ namespace HR.Controllers
             //user = await this.userService.GetByIdAsync(updateUserId);
 
             mapper.Map<SaveUserModel, User>(userModel, user);
+
+            if (userModel.InputFile!=null)
+            {
+                if (userModel.InputFile == null) return BadRequest("Null file");
+                if (userModel.InputFile.Length == 0) return BadRequest("Empty file");
+                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest("Max file size exceeded");
+                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest("Invalid file type.");
+                var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
+                var image = await photoStorage.StorePhoto(uploadsFolderPath, userModel.InputFile);
+                user.ImageFile = image;
+            }
             
             var userId = await this.userService.UpdateAsync(user);
 
@@ -93,7 +125,7 @@ namespace HR.Controllers
         }
 
         [HttpGet]
-        public async Task<QueryResultModel<UserModel>> GetUsers(UserQueryModel queryModel)
+        public async Task<QueryResultModel<UserModel>> GetUsers([FromQuery] UserQueryModel queryModel)
         {
             var query = mapper.Map<UserQueryModel, UserQuery>(queryModel);
             

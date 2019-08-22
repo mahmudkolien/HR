@@ -23,7 +23,7 @@ export class AppErrorHandler implements ErrorHandler {
             `body was: ${error.error}`);
         }
       } else {
-        console.error('some thing else happened');
+        console.error('some thing else happened:', error.message);
       }
 
 

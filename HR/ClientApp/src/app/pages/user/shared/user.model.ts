@@ -8,6 +8,7 @@ export interface IUser extends IEntity, IAuditable {
     userName: string;
     email: string;
     userRole: IKeyValuePair;
+    imageFile: string;
 }
 
 export interface ISaveUser extends IEntity {
@@ -15,6 +16,8 @@ export interface ISaveUser extends IEntity {
     userName: string;
     email: string;
     userRoleId: string;
+    imageFile: string;
+    inputFile: File;
 }
 
 export interface IUserQuery extends IQueryObject {

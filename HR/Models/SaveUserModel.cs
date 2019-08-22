@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace HR.Models
 {
@@ -19,5 +20,6 @@ namespace HR.Models
         public string ImageFile { get; set; }
         [Required]
         public Guid UserRoleId { get; set; }
+        public IFormFile InputFile { get; set; }
     }
 }

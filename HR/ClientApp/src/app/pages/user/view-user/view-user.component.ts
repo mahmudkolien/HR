@@ -18,6 +18,7 @@ export class ViewUserComponent implements OnInit {
     email: '',
     userRole: {id: '', name: ''},
     isDeleted: false,
+    imageFile: '',
     createdOn: null,
     updatedOn: null,
     createdById: '',

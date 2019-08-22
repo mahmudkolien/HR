@@ -2,7 +2,7 @@ import { messages } from './../../../ngx-pages/extra-components/chat/messages';
 import { UserRoleService } from './../shared/user-role.service';
 import { IUserRole } from './../shared/user-role.model';
 
-import { Component, OnInit, ChangeDetectorRef, ErrorHandler } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ErrorHandler, ViewChild, ElementRef } from '@angular/core';
 import { ISaveUser, IUser } from '../shared/user.model';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../shared/user.service';
@@ -18,6 +18,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class UserFormComponent implements OnInit {
 
+  @ViewChild('inputFile', { static: true }) inputFile: ElementRef;
   user: ISaveUser;
   userRoles: IUserRole[] = [];
   submitted: boolean = false;
@@ -42,6 +43,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onFormSubmit(form) {
+    this.user.inputFile = this.inputFile.nativeElement.files[0];
     if (this.user.id) {
       this.userService.update(this.user).subscribe(
         data => {
@@ -69,6 +71,8 @@ export class UserFormComponent implements OnInit {
       email: '',
       userRoleId: '',
       isDeleted: false,
+      imageFile: '',
+      inputFile: null,
     };
   }
 
@@ -95,8 +99,29 @@ export class UserFormComponent implements OnInit {
       userName: user.userName,
       email: user.email,
       userRoleId: user.userRole.id,
-      isDeleted: false,
+      isDeleted: user.isDeleted,
+      imageFile: user.imageFile ? '/uploads/' + user.imageFile : '',
+      inputFile: null,
     };
   }
+
+  // for Image --- start
+  onChangeInputFile(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      const file = event.target.files[0];
+      reader.onload = (loadEvent: any) => {
+        this.user.imageFile = loadEvent.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.user.imageFile = '';
+    }
+  }
+
+  onRemoveInputFile() {
+    this.user.imageFile = '';
+  }
+  // for Image --- end
 
 }

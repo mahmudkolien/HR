@@ -18,7 +18,7 @@ export class UserService {
 
   create(user: ISaveUser) {
     user.id = Guid.EMPTY;
-    return this.http.post(this.usersEndpoint, user);
+    return this.http.post(this.usersEndpoint, this.shared.toFormData(user));
   }
 
   getUser(id) {
@@ -35,7 +35,7 @@ export class UserService {
 
 
   update(user: ISaveUser) {
-    return this.http.put(this.usersEndpoint + '/' + user.id, user);
+    return this.http.put(this.usersEndpoint + '/' + user.id, this.shared.toFormData(user));
   }
 
   delete(id) {

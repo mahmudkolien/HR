@@ -26,6 +26,28 @@
 
   <div class="row">
       <div class="col-md-6">
+          <!-- for image start -->
+          <div class="form-group row text-center">
+            <label class="label col-sm-12 form-control-label" for="inputFile">Profile Image</label>
+            <div class="col-sm-12">
+              <div class="form-group row file-preview">
+                <input type="file" #inputFile id="inputFile" (change)="onChangeInputFile($event)">
+                  <div class="col-md-12">
+                      <label for="inputFile">
+                        <div class="file-container">
+                          <img [src]="user.imageFile?user.imageFile:'assets/images/avatar.png'" accept="image/*" class="rounded" alt="Image loaded..." >
+                          <div class="file-text-block"> 
+                            <!-- <a (click)="onRemoveInputFile()"><i class="fas fa-times"></i></a> -->
+                          </div>
+                        </div>
+                      </label>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <!-- for image end -->
+        </div>
+      <div class="col-md-6">
 
     <div class="form-group row">
       <label class="label col-sm-3 form-control-label required-label" for="fullName">Full Name</label>
@@ -123,9 +145,7 @@
         </div>
 
   </div>
-  <div class="col-md-6">
-
-  </div>
+  
 </div>
 </nb-card-body>
 <nb-card-footer>

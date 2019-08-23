@@ -1,3 +1,4 @@
+import { Shared } from './../../shared/shared';
 import { messages } from './../../../ngx-pages/extra-components/chat/messages';
 import { UserRoleService } from './../shared/user-role.service';
 import { IUserRole } from './../shared/user-role.model';
@@ -25,10 +26,12 @@ export class UserFormComponent implements OnInit {
   errors: string[] = [];
   showMessages: any = { success: false, error: false };
   messages: string[] = [];
+  imageError: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private shared: Shared,
     private userService: UserService,
     private userRoleService: UserRoleService,
     private toastrService: NbToastrService) {
@@ -43,7 +46,6 @@ export class UserFormComponent implements OnInit {
   }
 
   onFormSubmit(form) {
-    this.user.inputFile = this.inputFile.nativeElement.files[0];
     if (this.user.id) {
       this.userService.update(this.user).subscribe(
         data => {
@@ -69,6 +71,9 @@ export class UserFormComponent implements OnInit {
       fullName: '',
       userName: '',
       email: '',
+      mobile: '',
+      gender: '',
+      address: '',
       userRoleId: '',
       isDeleted: false,
       imageFile: '',
@@ -98,6 +103,9 @@ export class UserFormComponent implements OnInit {
       fullName: user.fullName,
       userName: user.userName,
       email: user.email,
+      mobile: user.mobile,
+      gender: user.gender,
+      address: user.address,
       userRoleId: user.userRole.id,
       isDeleted: user.isDeleted,
       imageFile: user.imageFile ? '/uploads/' + user.imageFile : '',
@@ -110,13 +118,34 @@ export class UserFormComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       const file = event.target.files[0];
+      if (!this.checkImageValidity(file)) return;
+      this.user.inputFile = this.inputFile.nativeElement.files[0];
       reader.onload = (loadEvent: any) => {
         this.user.imageFile = loadEvent.target.result;
       };
       reader.readAsDataURL(file);
     } else {
+      this.user.inputFile = null;
       this.user.imageFile = '';
     }
+  }
+
+  checkImageValidity(file) {
+    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+    if (!(this.shared.PhotoSettings.AcceptedFileTypes.indexOf(fileExt) > -1)) {
+      this.imageError = 'Invalid file type.';
+      this.user.inputFile = null;
+      this.user.imageFile = '';
+      return false;
+    }
+    if (file.size > this.shared.PhotoSettings.MaxBytes) {
+      this.imageError = 'Max file size exceeded';
+      this.user.inputFile = null;
+      this.user.imageFile = '';
+      return false;
+    }
+    this.imageError = '';
+    return true;
   }
 
   onRemoveInputFile() {

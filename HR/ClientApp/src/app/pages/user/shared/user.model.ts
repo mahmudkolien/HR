@@ -7,6 +7,9 @@ export interface IUser extends IEntity, IAuditable {
     fullName: string;
     userName: string;
     email: string;
+    mobile: string;
+    gender: string;
+    address: string;
     userRole: IKeyValuePair;
     imageFile: string;
 }
@@ -15,6 +18,9 @@ export interface ISaveUser extends IEntity {
     fullName: string;
     userName: string;
     email: string;
+    mobile: string;
+    gender: string;
+    address: string;
     userRoleId: string;
     imageFile: string;
     inputFile: File;

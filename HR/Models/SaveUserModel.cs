@@ -17,7 +17,7 @@ namespace HR.Models
         public string Mobile { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
-        public string ImageFile { get; set; }
+        //public string ImageFile { get; set; }
         [Required]
         public Guid UserRoleId { get; set; }
         public IFormFile InputFile { get; set; }

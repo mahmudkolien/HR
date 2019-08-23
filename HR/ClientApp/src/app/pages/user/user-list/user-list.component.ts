@@ -56,6 +56,8 @@ export class UserListComponent implements OnInit {
       { title: 'Name', key: 'name', isSortable: true },
       { title: 'User Name', key: 'userName', isSortable: true },
       { title: 'Email', key: 'email', isSortable: true },
+      { title: 'Mobile' },
+      { title: 'Address' },
       { title: 'User Role' },
       { title: '###' },
     ];

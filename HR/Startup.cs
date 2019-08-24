@@ -44,7 +44,10 @@ namespace HR
             services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();
             services.AddTransient<IDepartmentService,DepartmentService>();
-
+            //Company
+            services.AddScoped<ICompanyRepository,CompanyRepository>();
+            services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();
+            services.AddTransient<ICompanyService,CompanyService>();
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             services.AddDbContext<HRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 

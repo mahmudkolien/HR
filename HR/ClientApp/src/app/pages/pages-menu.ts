@@ -22,6 +22,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/department',
   },
   {
+    title: 'Company',
+    icon: 'shuffle-2-outline',
+    link: '/pages/company',
+  },
+  {
     title: 'Miscellaneous',
     icon: 'shuffle-2-outline',
     children: [

@@ -14,10 +14,14 @@ namespace HR.Mapping
             CreateMap<User, SaveUserModel>();
             CreateMap<Department,DepartmentModel>();
             CreateMap<Department,DepartmentSaveModel>();
+            CreateMap<Company,CompanyModel>();
+            CreateMap<Company,CompanySaveModel>();
+
 
             // Model To Domain
             CreateMap<SaveUserModel, User>();
             CreateMap<DepartmentSaveModel,Department>();
+            CreateMap<CompanySaveModel,Company>();
 
         }
     }

@@ -1,0 +1,24 @@
+<button nbButton class="btn btn-success" (click)="open()">Add</button>
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Department Name</th>
+        <th>Created On</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let department of departments">
+        <td>
+            {{department.departmentName}}
+        </td>
+        <td>
+            {{department.createdOn|date }}
+        </td>
+        <td>
+            <button class="btn btn-sm btn-success"  (click)="edit(department)"><i class="fa fa-edit"></i></button>
+            <button  class="btn btn-sm btn-danger" (click)="delete(department.id)"><i class="fa fa-trash"></i></button>
+        </td>
+     </tr>
+    </tbody>
+  </table>

@@ -21,6 +21,12 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { UserModule } from './user/user.module';
 import { CommonModule } from '@angular/common';
 
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserFormComponent } from './user/user-form/user-form.component';
+import { ViewUserComponent } from './user/view-user/view-user.component';
+import { DepartmentModule } from './department/shared/department.module';
+
 @NgModule({
   imports: [
     PagesRoutingModule,
@@ -29,9 +35,12 @@ import { CommonModule } from '@angular/common';
     DashboardModule,
     MiscellaneousModule,
     UserModule,
+    DepartmentModule
+
+ 
   ],
   declarations: [
-    PagesComponent,
+    PagesComponent
   ],
   providers: [
     Shared,

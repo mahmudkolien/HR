@@ -13,6 +13,9 @@ export class ShowcaseDialogComponent {
   constructor(protected ref: NbDialogRef<ShowcaseDialogComponent>) {}
 
   dismiss() {
+    
     this.ref.close();
+
   }
+
 }

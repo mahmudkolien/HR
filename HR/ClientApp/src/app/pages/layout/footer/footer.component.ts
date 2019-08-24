@@ -8,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  companyFullName: string = '';
+  developerCompanyFullName: string = '';
   currentDate: any;
 
   constructor(private config: Config) { }
 
   ngOnInit() {
-    this.companyFullName = this.config.companyFullName;
+    this.developerCompanyFullName = this.config.developerCompanyFullName;
     this.currentDate = new Date();
   }
 

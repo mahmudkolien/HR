@@ -1,4 +1,4 @@
 
 export class Config {
-    companyFullName: string = 'Encoders Infotech Limited';
+    developerCompanyFullName: string = 'Encoders Infotech Limited';
 }

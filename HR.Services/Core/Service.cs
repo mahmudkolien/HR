@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HR.Entities.Core;
+using HR.Entities.NotMapped;
 using HR.Repository.Contracts;
 using HR.Repository.Core;
 
@@ -18,32 +19,32 @@ namespace HR.Services.Core
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> AddAsync(TEntity entity)
+        public virtual async Task<Guid> AddAsync(TEntity entity)
         {
             await this.repository.AddAsync(entity);
             await this.unitOfWork.CompleteAsync();
             return  entity.Id;
         }
 
-        public async Task<Guid> UpdateAsync(TEntity entity)
+        public virtual async Task<Guid> UpdateAsync(TEntity entity)
         {
             await this.repository.UpdateAsync(entity);
             await this.unitOfWork.CompleteAsync();
             return  entity.Id;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public virtual async Task<bool> DeleteAsync(Guid id)
         {
             await this.repository.DeleteAsync(id);
             return await this.unitOfWork.CompleteAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<QueryResult<TEntity>> GetAllAsync()
         {
             return await this.repository.GetAllAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await this.repository.GetByIdAsync(id);
         }

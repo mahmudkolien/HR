@@ -1,3 +1,63 @@
-<p>
-  view-user works!
-</p>
+<nb-card>
+  <nb-card-header>User Details</nb-card-header>
+  <nb-card-body class="profile">
+    <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <div class="col-sm-12 text-center">
+              <img [src]="user.imageFile?'/uploads/'+user.imageFile:'assets/images/avatar.png'" class="rounded" alt="Profile Image">
+            </div>
+          </div>
+        </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">Full Name</label>
+          <div class="col-sm-9">
+            {{ user.fullName }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">User Name</label>
+          <div class="col-sm-9">
+            {{ user.userName }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">Email</label>
+          <div class="col-sm-9">
+            {{ user.email }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">Mobile</label>
+          <div class="col-sm-9">
+            {{ user.mobile }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">Address</label>
+          <div class="col-sm-9">
+            {{ user.address }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="label col-sm-3 form-control-label">Gender</label>
+          <div class="col-sm-9">
+            {{ user.gender }}
+          </div>
+        </div>
+        <div class="form-group row">
+            <label class="label col-sm-3 form-control-label">User Role</label>
+            <div class="col-sm-9">
+              {{ user.userRole.name }}
+            </div>
+          </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="d-flex">
+      <button class="ml-auto" nbButton size="small" status="default" (click)="dismiss()">close</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HR.Entities.NotMapped;
 
 namespace HR.Services.Core
 {
@@ -10,6 +11,6 @@ namespace HR.Services.Core
         Task<Guid> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(Guid id);
         Task<TEntity> GetByIdAsync(Guid id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<QueryResult<TEntity>> GetAllAsync();
     }
 }

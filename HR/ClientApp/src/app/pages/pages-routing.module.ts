@@ -21,13 +21,6 @@ const routes: Routes = [{
     },
     {
       path: 'user/new',
-<<<<<<< HEAD
-=======
-      component: UserFormComponent,
-    },
-    {
-      path: 'user/edit/:id',
->>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
       component: UserFormComponent,
     },
     {

@@ -17,12 +17,21 @@ namespace HR.Mapping
             CreateMap<User, SaveUserModel>()
                 .ForMember(dest => dest.UserRoleId, opt => opt.MapFrom(u => u.RoleId));
             CreateMap<UserRole, UserRoleModel>();
+<<<<<<< HEAD
+=======
+            CreateMap<Department,DepartmentModel>();
+            CreateMap<Department,DepartmentSaveModel>();
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
             
             // Model To Domain
             CreateMap<UserQueryModel, UserQuery>();
             CreateMap<SaveUserModel, User>()
                 .ForMember(dest => dest.RoleId, opt => opt.MapFrom(u => u.UserRoleId))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
+<<<<<<< HEAD
+=======
+            CreateMap<DepartmentSaveModel,Department>();
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
 
         }
     }

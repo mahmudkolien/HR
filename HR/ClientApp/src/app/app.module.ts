@@ -33,7 +33,10 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RequestPasswordComponent } from './auth/request-password/request-password.component';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
 import { AppErrorHandler } from './app.error-handler';
 import { HttpModule } from '@angular/http';
 
@@ -47,7 +50,12 @@ import { HttpModule } from '@angular/http';
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
+<<<<<<< HEAD
 
+=======
+    ModalModule,
+    HttpModule,
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
     ThemeModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),

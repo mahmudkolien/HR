@@ -118,7 +118,11 @@ export class UserFormComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       const file = event.target.files[0];
+<<<<<<< HEAD
       if (!this.isValidImage(file)) return;
+=======
+      if (!this.checkImageValidity(file)) return;
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
       this.user.inputFile = this.inputFile.nativeElement.files[0];
       reader.onload = (loadEvent: any) => {
         this.user.imageFile = loadEvent.target.result;
@@ -130,7 +134,11 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   isValidImage(file) {
+=======
+  checkImageValidity(file) {
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
     const fileExt = '.' + file.name.split('.').pop().toLowerCase();
     if (!(this.shared.PhotoSettings.AcceptedFileTypes.indexOf(fileExt) > -1)) {
       this.imageError = 'Invalid file type.';

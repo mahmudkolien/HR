@@ -1,7 +1,10 @@
 import { Shared } from './shared/shared';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
 import {
   NbMenuModule,
   NbInputModule,
@@ -26,6 +29,10 @@ import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { ViewUserComponent } from './user/view-user/view-user.component';
+<<<<<<< HEAD
+=======
+import { DepartmentModule } from './department/shared/department.module';
+>>>>>>> 82a9553b838afd5689eeca4d50d421f8bc7c1153
 
 @NgModule({
   imports: [

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace HR
 {
@@ -33,18 +34,22 @@ namespace HR
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
             
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRoleService, UserRoleService>();
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
-            //Department
-            services.AddScoped<IDepartmentRepository,DepartmentRepository>();
-            services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();
-            services.AddTransient<IDepartmentService,DepartmentService>();
 
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             services.AddDbContext<HRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.Configure<FormOptions>(x => {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = long.MaxValue;
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

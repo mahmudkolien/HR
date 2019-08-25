@@ -7,9 +7,10 @@ namespace HR.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly HRDbContext context;
+
         public UnitOfWork(HRDbContext context)
         {
-            this.context = context;
+        this.context = context;
         }
 
         public async Task<bool> CompleteAsync()

@@ -1,16 +1,31 @@
+import { IKeyValuePair } from './../../shared/key-value-pair.model';
 import { IEntity } from '../../shared/entity.model';
 import { IAuditable } from '../../shared/auditable.model';
+import { IQueryObject } from '../../shared/query-object.model';
 
 export interface IUser extends IEntity, IAuditable {
-    FullName: string;
-    UserName: string;
-    Email: string;
-    Password: string;
+    fullName: string;
+    userName: string;
+    email: string;
+    mobile: string;
+    gender: string;
+    address: string;
+    userRole: IKeyValuePair;
+    imageFile: string;
 }
 
 export interface ISaveUser extends IEntity {
-    FullName: string;
-    UserName: string;
-    Email: string;
-    Password: string;
+    fullName: string;
+    userName: string;
+    email: string;
+    mobile: string;
+    gender: string;
+    address: string;
+    userRoleId: string;
+    imageFile: string;
+    inputFile: File;
+}
+
+export interface IUserQuery extends IQueryObject {
+    name: string;
 }

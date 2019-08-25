@@ -1,22 +1,69 @@
-<p>
-  user-list works!
-</p>
-<p>{{ users | json}}</p>
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>User Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.fullName }}</td>
-      <td>{{ user.userName }}</td>
-      <td>{{ user.email }}</td>
-    </tr>
-  </tbody>
-</table>
+
+
+<nb-card>
+  <nb-card-header>
+    <div class="d-flex">
+      User List
+      <div class="ml-auto">
+        <!-- <nb-actions size="small">
+          <nb-action  icon="plus-square-outline" [routerLink]="['/pages/user/new']"></nb-action>
+        </nb-actions> -->
+        <button nbButton size="tiny" shape="rectangle" status="primary" [routerLink]="['/pages/user/new']">
+          <nb-icon icon="plus-square-outline" title="New User"></nb-icon>
+        </button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-inline">
+        <input type="text" nbInput fullWidth fieldSize="small" placeholder="Name" [(ngModel)]="query.name" (keyup)="onFilterChange()">
+        <button type="button" nbButton size="small" shape="round" status="default" (click)="resetFilter()">Reset</button>
+    </div>
+    <table class="table table-sm table-bordered table-hover">
+      <thead>
+        <tr>
+          <th *ngFor="let c of columns; let first = first; let last = last;" 
+            [ngClass]="{'text-center': last, 'serial': first}">
+            <div *ngIf="c.isSortable" (click)="sortBy(c.key)" class="d-flex">
+              {{ c.title }}
+              <nb-icon *ngIf="query.sortBy === c.key" class="ml-auto"
+                [icon]="(query.isSortAscending?'chevron-up-outline':'chevron-down-outline')">
+              </nb-icon>
+            </div>
+            <div *ngIf="!c.isSortable">
+              {{ c.title }}
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of queryResult.items | paginate: paginationConfig; let i = index">
+          <td class="serial">{{ absoluteSerial(i) }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.mobile }}</td>
+          <td>{{ user.address }}</td>
+          <td>{{ user.userRole.name }}</td>
+          <td class="text-center">
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="info" (click)="showDetails(user.id)">
+              <nb-icon icon="eye-outline" title="Details"></nb-icon>
+            </button>
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="primary" [routerLink]="['/pages/user/edit/', user.id]">
+              <nb-icon icon="edit-outline" title="Edit"></nb-icon>
+            </button>
+            <button nbButton size="tiny" class="reduce-btn-pad" ghost status="danger" (click)="onDelete(user.id, user.fullName)">
+              <nb-icon icon="trash-2-outline" title="Delete"></nb-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="!queryResult || queryResult.items.length==0">
+          <td class="text-center" colspan="8">No data</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
+  </nb-card-body>
+</nb-card>

@@ -1,5 +1,5 @@
 
 export interface IEntity {
-    Id: string;
-    IsDeleted: boolean;
+    id: string;
+    isDeleted: boolean;
 }

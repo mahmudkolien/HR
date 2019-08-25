@@ -5,11 +5,11 @@ using HR.Repository.Core;
 
 namespace HR.Repository
 {
-    public class DepartmentRepository : Repository<Department>, IDepartmentRepository
+    public class UserRoleRepository : Repository<UserRole>, IUserRoleRepository
     {
         private readonly HRDbContext dbContext;
 
-        public DepartmentRepository(HRDbContext dbContext) : base(dbContext)
+        public UserRoleRepository(HRDbContext dbContext) : base(dbContext)
         {
             this.dbContext = dbContext;
         }

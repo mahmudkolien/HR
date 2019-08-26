@@ -42,12 +42,10 @@ import { BranchModule } from './branch/shared/branch.module';
     UserModule,
     DepartmentModule,
     CompanyModule,
-    BranchModule
-
- 
+    BranchModule,
   ],
   declarations: [
-    PagesComponent
+    PagesComponent,
   ],
   providers: [
     Shared,

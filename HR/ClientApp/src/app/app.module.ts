@@ -12,8 +12,6 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ModalModule } from 'ngb-modal';
-
 
 import {
   NbChatModule,
@@ -43,7 +41,6 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    
     ],
   imports: [
     BrowserModule,
@@ -51,7 +48,6 @@ import { HttpModule } from '@angular/http';
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-    ModalModule,
     HttpModule,
     ThemeModule.forRoot(),
     NbSidebarModule.forRoot(),

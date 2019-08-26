@@ -19,100 +19,6 @@ namespace HR.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HR.Entities.Branch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("BranchName");
-
-                    b.Property<Guid>("CompanyId");
-
-                    b.Property<Guid?>("CreatedById");
-
-                    b.Property<DateTime?>("CreatedOn");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("PhoneNo");
-
-                    b.Property<Guid?>("UpdatedById");
-
-                    b.Property<DateTime?>("UpdatedOn");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Branches");
-                });
-
-            modelBuilder.Entity("HR.Entities.Company", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired();
-
-                    b.Property<string>("ContactPerson");
-
-                    b.Property<string>("ContactPersonEmail");
-
-                    b.Property<string>("ContactPersonPhone");
-
-                    b.Property<Guid?>("CreatedById");
-
-                    b.Property<DateTime?>("CreatedOn");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Fax");
-
-                    b.Property<string>("FiscalYearStart");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<Guid?>("UpdatedById");
-
-                    b.Property<DateTime?>("UpdatedOn");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("HR.Entities.Department", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("CreatedById");
-
-                    b.Property<DateTime?>("CreatedOn");
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired();
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<Guid?>("UpdatedById");
-
-                    b.Property<DateTime?>("UpdatedOn");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
-                });
-
             modelBuilder.Entity("HR.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -195,14 +101,6 @@ namespace HR.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
-                });
-
-            modelBuilder.Entity("HR.Entities.Branch", b =>
-                {
-                    b.HasOne("HR.Entities.Company", "Company")
-                        .WithMany("Branchs")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("HR.Entities.User", b =>

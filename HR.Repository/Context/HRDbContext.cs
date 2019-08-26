@@ -7,9 +7,6 @@ namespace HR.Repository.Context
     {
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Department> Departments{get;set;}
-        public DbSet<Company> Companies{get;set;}
-        public DbSet<Branch> Branches{get;set;}
 
         public HRDbContext(DbContextOptions<HRDbContext> options) : base(options)
         {

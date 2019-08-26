@@ -17,11 +17,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/user',
   },
   {
-    title: 'Department',
-    icon: 'shuffle-2-outline',
-    link: '/pages/department',
-  },
-  {
     title: 'Miscellaneous',
     icon: 'shuffle-2-outline',
     children: [

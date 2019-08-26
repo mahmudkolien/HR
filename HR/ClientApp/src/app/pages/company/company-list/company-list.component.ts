@@ -4,6 +4,7 @@ import { ICompany, ISaveCompany } from '../shared/company.model';
 import { CompanyAddEditComponent } from '../company-add-edit/company-add-edit.component';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ThrowStmt } from '@angular/compiler';
+import { IQueryResult } from '../../shared/query-result.model';
 
 @Component({
   selector: 'app-company-list',
@@ -12,7 +13,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class CompanyListComponent implements OnInit {
 
-  companies : ICompany[];
+  queryResult: IQueryResult;
   months : any[];
   saveCompany : ISaveCompany={
     id:'',
@@ -26,11 +27,14 @@ export class CompanyListComponent implements OnInit {
     contactPersonPhone:'',
     fiscalYearStart:''
   }
-  constructor(private companyService : CompanyService,private dialogService: NbDialogService,private toastrService: NbToastrService) { }
+  constructor(private companyService : CompanyService,private dialogService: NbDialogService,private toastrService: NbToastrService) {
+    this.initiateQueryResult();
+   }
 
   ngOnInit() 
   {
-    this.companyService.getCompanies().subscribe(data => this.companies = <ICompany[]>data)
+    this.MapCompaniesData();
+    this.initiateQueryResult();
     this.companyService.getMonth().subscribe(months=>{this.months=months;});
   }
   open()
@@ -38,12 +42,12 @@ export class CompanyListComponent implements OnInit {
       this.dialogService.open(CompanyAddEditComponent, {
         context: { },
       }).onClose.subscribe(data => {
-        this.companyService.getCompanies().subscribe(data => this.companies = <ICompany[]>data)
+        this.MapCompaniesData();
       });
   }
   getMonthName(intMonth)
   {
-  return this.months? this.months.find(s=>s.value==intMonth).text: intMonth;
+    return this.months? this.months.find(s=>s.value==intMonth).text: intMonth;
   }
   edit(company)
   {
@@ -62,7 +66,7 @@ export class CompanyListComponent implements OnInit {
     this.dialogService.open(CompanyAddEditComponent, {
       context: {company: this.saveCompany},
     }).onClose.subscribe(data => {
-      this.companyService.getCompanies().subscribe(data => this.companies = <ICompany[]>data)
+      this.MapCompaniesData();
     });
   }
   delete(id)
@@ -71,8 +75,17 @@ export class CompanyListComponent implements OnInit {
     {
       this.companyService.deleteCompany(id).subscribe(data=>{
         this.toastrService.success('Delete Successful');
-        this.companyService.getCompanies().subscribe(data => this.companies = <ICompany[]>data)
+       this.MapCompaniesData();
       });
     }
+  }
+  MapCompaniesData(){
+    this.companyService.getCompanies().subscribe(data => this.queryResult = <IQueryResult>data)
+  }
+  initiateQueryResult() {
+    this.queryResult = {
+      totalItems: 0,
+      items: [],
+    };
   }
 }

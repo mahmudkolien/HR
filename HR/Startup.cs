@@ -48,6 +48,11 @@ namespace HR
             services.AddScoped<ICompanyRepository,CompanyRepository>();
             services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();
             services.AddTransient<ICompanyService,CompanyService>();
+            //Branch
+            services.AddScoped<IBranchRepository,BranchRepository>();
+            services.AddScoped<IUnitOfWork,BranchUnitOfWork>();
+            services.AddTransient<IBranchService,BranchService>();
+            
             services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             services.AddDbContext<HRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 

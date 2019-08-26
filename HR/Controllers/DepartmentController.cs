@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HR.Entities;
+using HR.Entities.NotMapped;
 using HR.Models;
+using HR.Models.QueryModels;
 using HR.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,12 +26,12 @@ namespace HR.Controllers
 
        
         [HttpGet]
-        public async Task<IEnumerable<DepartmentModel>> GetDepartments()
+        public async Task<QueryResultModel<DepartmentModel>> GetDepartments()
         {
             var departments = await this.departmentService.GetAllAsync();
-            var result = mapper.Map<IEnumerable<Department>, IEnumerable<DepartmentModel>>(departments);
+            var result = mapper.Map<QueryResult<Department>, QueryResultModel<DepartmentModel>>(departments);
 
-            return result.Where(x => !x.IsDeleted);
+            return result;
         }
 
         [HttpPost]

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompanyListComponent } from '../company-list/company-list.component';
 import { ToasterService } from 'angular2-toaster';
-import { NbDialogService, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule } from '@nebular/theme';
+import { NbDialogService, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbIconModule } from '@nebular/theme';
 import { CompanyService } from './company.service';
 import { CompanyAddEditComponent } from '../company-add-edit/company-add-edit.component';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     NbCheckboxModule,
     NbDialogModule,
     FormsModule,
+    NbIconModule
     
   ],
   providers: [

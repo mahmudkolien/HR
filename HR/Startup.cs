@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http.Features;
+using System;
 
 namespace HR
 {
@@ -47,8 +48,8 @@ namespace HR
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             services.Configure<FormOptions>(x => {
-                x.ValueLengthLimit = int.MaxValue;
-                x.MultipartBodyLengthLimit = long.MaxValue;
+                x.ValueLengthLimit = Int32.MaxValue;
+                x.MultipartBodyLengthLimit = Int64.MaxValue;
             });
 
             // In production, the Angular files will be served from this directory

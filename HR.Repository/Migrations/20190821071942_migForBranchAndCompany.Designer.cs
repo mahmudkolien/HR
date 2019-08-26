@@ -4,14 +4,16 @@ using HR.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HR.Repository.Migrations
 {
     [DbContext(typeof(HRDbContext))]
-    partial class HRDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190821071942_migForBranchAndCompany")]
+    partial class migForBranchAndCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +26,6 @@ namespace HR.Repository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
                     b.Property<string>("BranchName");
 
                     b.Property<Guid>("CompanyId");
@@ -34,11 +34,9 @@ namespace HR.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedOn");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Description");
 
                     b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("PhoneNo");
 
                     b.Property<Guid?>("UpdatedById");
 

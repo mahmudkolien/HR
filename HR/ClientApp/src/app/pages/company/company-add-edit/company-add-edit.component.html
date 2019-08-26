@@ -1,0 +1,64 @@
+<form (ngSubmit)="onSubmit()" novalidate>
+  <nb-card>
+    <nb-card-header>Company</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="companyName">Company Name</label>
+              <input name="companyName" id="companyName" class="form-control input-sm" [(ngModel)]="company.companyName"  required #companyName="ngModel"/>
+              <div class="text-danger" *ngIf="companyName.touched && !companyName.valid">Please Enter Name.</div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea name="address" id="address" class="form-control input-sm" [(ngModel)]="company.address" required  #address="ngModel"></textarea>
+            <div class="text-danger" *ngIf="address.touched && !address.valid">Please Enter Address.</div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input name="phone" id="phone"  class="form-control input-sm" [(ngModel)]="company.phone"   #phone="ngModel"/>
+          </div>
+          <div class="form-group">
+              <label for="fax">Fax</label>
+              <input name="fax" id="fax"  class="form-control input-sm" [(ngModel)]="company.fax"   #fax="ngModel"/>
+          </div>
+          <div class="form-group">
+              <label for="email">E-mail</label>
+              <input name="email" id="email" type="email"  class="form-control input-sm" [(ngModel)]="company.email"   #email="ngModel"/>
+              <div class="text-danger" *ngIf="email.touched && !email.valid">Please Enter Valid E-mail.</div>
+            </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="contactPerson">Contact Person Name</label>
+              <input name="contactPerson" id="contactPerson" class="form-control input-sm" [(ngModel)]="company.contactPerson"   #contactPerson="ngModel"/>
+              <div class="text-danger" *ngIf="contactPerson.touched && !contactPerson.valid">Please Enter Name.</div>
+          </div>
+          <div class="form-group">
+            <label for="contactPersonEmail">Contact Person Email</label>
+            <input name="contactPersonEmail" id="contactPersonEmail" type="email" class="form-control input-sm" [(ngModel)]="company.contactPersonEmail"   #contactPersonEmail="ngModel"/>
+            <div class="text-danger" *ngIf="contactPersonEmail.touched && !contactPersonEmail.valid">Please Enter Valid E-mail.</div>
+          </div>
+          <div class="form-group">
+              <label for="contactPersonPhone">Contact Person Phone</label>
+              <input name="contactPersonPhone" id="contactPersonPhone"  class="form-control input-sm" [(ngModel)]="company.contactPersonPhone"   #contactPersonPhone="ngModel"/>
+              <div class="text-danger" *ngIf="contactPersonPhone.touched && !contactPersonPhone.valid">Please Enter Valid Phone.</div>
+            </div>
+          <div class="form-group">
+              <label for="fiscalYearStart">Fiscal Year Start</label>
+              <select name="fiscalYearStart" id="fiscalYearStart" type="month" class="form-control input-sm" [(ngModel)]="company.fiscalYearStart"   #fiscalYearStart="ngModel">
+                <option *ngFor="let month of months" value="{{month.value}}">{{month.text}}</option>
+              </select>
+              <div class="text-danger" *ngIf="fiscalYearStart.touched && !fiscalYearStart.valid">Please Enter Valid Month.</div>
+            </div>
+      </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="btn btn-danger btn-sm" (click)="dismiss()">Cancel</button>
+      <button class="btn btn-success btn-sm pull-right" type="submit">Save</button>
+    </nb-card-footer>
+  </nb-card>
+  </form>
+  
+  

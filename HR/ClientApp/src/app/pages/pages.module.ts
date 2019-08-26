@@ -27,6 +27,11 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { ViewUserComponent } from './user/view-user/view-user.component';
 
+import { DepartmentModule } from './department/shared/department.module';
+import { CompanyModule } from './company/shared/company.module';
+import { BranchModule } from './branch/shared/branch.module';
+
+
 @NgModule({
   imports: [
     PagesRoutingModule,
@@ -35,6 +40,10 @@ import { ViewUserComponent } from './user/view-user/view-user.component';
     DashboardModule,
     MiscellaneousModule,
     UserModule,
+    DepartmentModule,
+    CompanyModule,
+    BranchModule,
+
   ],
   declarations: [
     PagesComponent,

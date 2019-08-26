@@ -1,0 +1,67 @@
+<nb-card>
+        <nb-card-header>
+            <div class="d-flex">
+              Company
+              <div class="ml-auto">
+                <button  size="tiny" shape="rectangle" (click)="open()" status="primary">
+                  <nb-icon icon="plus-square-outline" title="New Department"></nb-icon> Add
+                </button>
+              </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+          <table class="table table-sm table-bordered table-hover">
+                <thead>
+                        <tr>
+                          <th nowrap="nowrap">Name</th>
+                          <th nowrap="nowrap">Address</th>
+                          <th nowrap="nowrap">Phone No</th>
+                          <th nowrap="nowrap">Fax</th>
+                          <th nowrap="nowrap">Email</th>
+                          <th nowrap="nowrap">Contact Person</th>
+                          <th nowrap="nowrap">Fiscal Year</th>
+                          <th nowrap="nowrap">Created On</th>
+                          <th nowrap="nowrap">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       <tr *ngFor="let company of queryResult.items">
+                          <td>
+                              {{company.companyName}}
+                          </td>
+                          <td>
+                              {{company.address}}
+                          </td>
+                          <td>
+                              {{company.phone}}
+                          </td>
+                          <td>
+                              {{company.fax}}
+                          </td>
+                          <td>
+                              {{company.email}}
+                          </td>
+                          <td>
+                              {{company.contactPerson}}
+                          </td>
+                         
+                          <td>
+                              {{getMonthName(company.fiscalYearStart)}}
+                          </td>
+                          <td >
+                              {{company.createdOn|date }}
+                          </td>
+                          <td nowrap="nowrap">
+                              <button class="btn btn-sm btn-success"  (click)="edit(company)"><i class="fa fa-edit"></i></button>
+                              <button  class="btn btn-sm btn-danger" (click)="delete(company.id)"><i class="fa fa-trash"></i></button>
+                          </td>
+                       </tr>
+                      </tbody>
+            </table>
+        </nb-card-body>
+      </nb-card>
+      
+      
+
+
+

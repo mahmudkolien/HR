@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using HR.Entities;
+using HR.Entities.NotMapped;
 using HR.Repository;
 using HR.Repository.Contracts;
 using HR.Repository.Core;
@@ -21,6 +23,11 @@ namespace HR.Services
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+        }
+
+        public override async Task<QueryResult<Department>> GetAllAsync()
+        {
+            return await this.repository.GetAllAsync(x => !x.IsDeleted);
         }
         public void CompleteAsync()
         {

@@ -21,6 +21,8 @@ namespace HR.Mapping
             CreateMap<Department,DepartmentSaveModel>();
             CreateMap<Company,CompanyModel>();
             CreateMap<Company,CompanySaveModel>();
+            CreateMap<Branch,BranchModel>();
+            CreateMap<Branch,BranchSaveModel>();
 
             // Model To Domain
             CreateMap<UserQueryModel, UserQuery>();
@@ -29,6 +31,7 @@ namespace HR.Mapping
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
             CreateMap<DepartmentSaveModel,Department>();
             CreateMap<CompanySaveModel,Company>();
+            CreateMap<BranchSaveModel,Branch>();
 
         }
     }

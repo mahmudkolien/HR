@@ -6,21 +6,23 @@ import { IDepartment, ISaveDepartment } from './shared/department.model';
 import { NbDialogRef } from '@nebular/theme';
 import { DeparmentAddComponent } from './deparment-add/deparment-add.component';
 import { ThrowStmt } from '@angular/compiler';
+import { IQueryResult } from '../shared/query-result.model';
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-  departments:IDepartment[];
+  queryResult: IQueryResult;
   saveDepartment : ISaveDepartment={ id:"00000000-0000-0000-0000-000000000000",isDeleted:false,departmentName:''};
   constructor(private dialogService: NbDialogService,private departmentService: DepartmentService,private toastrService: NbToastrService) 
   {
+    this.initiateQueryResult();
    
   }  
   ngOnInit() 
   {
-    this.departmentService.getDepartments().subscribe(data => this.departments = <IDepartment[]>data)
+    this.mapDepartmentsData();
   }
   edit(department)
   {
@@ -29,7 +31,7 @@ export class DepartmentComponent implements OnInit {
     this.dialogService.open(DeparmentAddComponent, {
       context: {department: this.saveDepartment},
     }).onClose.subscribe(data => {
-      this.departmentService.getDepartments().subscribe(data => this.departments = <IDepartment[]>data)
+      this.mapDepartmentsData();
     });
   }
   open()
@@ -37,7 +39,7 @@ export class DepartmentComponent implements OnInit {
       this.dialogService.open(DeparmentAddComponent, {
         context: { },
       }).onClose.subscribe(data => {
-        this.departmentService.getDepartments().subscribe(data => this.departments = <IDepartment[]>data)
+        this.mapDepartmentsData();
       });
   }
   delete(id)
@@ -46,9 +48,19 @@ export class DepartmentComponent implements OnInit {
     {
       this.departmentService.deleteDepartment(id).subscribe(data=>{
         this.toastrService.success('Delete Successful');
-        this.departmentService.getDepartments().subscribe(data => this.departments = <IDepartment[]>data)
+       this.mapDepartmentsData();
       });
     }
+  }
+
+  initiateQueryResult() {
+    this.queryResult = {
+      totalItems: 0,
+      items: [],
+    };
+  }
+  mapDepartmentsData(){
+    this.departmentService.getDepartments().subscribe(data => this.queryResult = <IQueryResult>data);
   }
   
  

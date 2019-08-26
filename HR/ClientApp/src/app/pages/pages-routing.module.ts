@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { DepartmentComponent } from './department/department.component';
 import { CompanyListComponent } from './company/company-list/company-list.component';
+import { BranchListComponent } from './branch/branch-list/branch-list.component';
 
 const routes: Routes = [{
   path: '',
@@ -36,6 +37,10 @@ const routes: Routes = [{
     {
       path: 'company',
       component: CompanyListComponent,
+    },
+    {
+      path: 'branch',
+      component: BranchListComponent,
     },
     {
       path: 'miscellaneous',

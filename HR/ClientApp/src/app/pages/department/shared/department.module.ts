@@ -3,18 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DepartmentService } from './/department.service';
 import {DepartmentComponent} from '../department.component'
-import { NbDialogService, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule } from '@nebular/theme';
+import { NbDialogService, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbIconModule } from '@nebular/theme';
 import { DeparmentAddComponent } from '../deparment-add/deparment-add.component';
 import { ToasterService } from 'angular2-toaster';
-
-
-
-
 @NgModule({
   declarations: [
     DepartmentComponent,
-    DeparmentAddComponent,
- 
+    DeparmentAddComponent
   ],
   imports: [
     CommonModule,
@@ -23,8 +18,7 @@ import { ToasterService } from 'angular2-toaster';
     NbCheckboxModule,
     NbDialogModule,
     FormsModule,
-    
-  
+    NbIconModule
   ],
   providers: [
     DepartmentService,

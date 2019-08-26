@@ -10,6 +10,7 @@ namespace HR.Repository.Context
         public DbSet<Department> Departments{get;set;}
         public DbSet<Company> Companies{get;set;}
         public DbSet<Branch> Branches{get;set;}
+
         public HRDbContext(DbContextOptions<HRDbContext> options) : base(options)
         {
         }

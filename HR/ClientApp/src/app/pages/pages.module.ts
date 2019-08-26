@@ -1,6 +1,7 @@
 import { Shared } from './shared/shared';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
+
 import {
   NbMenuModule,
   NbInputModule,
@@ -25,11 +26,10 @@ import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { ViewUserComponent } from './user/view-user/view-user.component';
+
 import { DepartmentModule } from './department/shared/department.module';
 import { CompanyModule } from './company/shared/company.module';
 import { BranchModule } from './branch/shared/branch.module';
-
-
 
 
 @NgModule({
@@ -42,12 +42,11 @@ import { BranchModule } from './branch/shared/branch.module';
     UserModule,
     DepartmentModule,
     CompanyModule,
-    BranchModule
+    BranchModule,
 
- 
   ],
   declarations: [
-    PagesComponent
+    PagesComponent,
   ],
   providers: [
     Shared,

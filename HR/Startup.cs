@@ -40,7 +40,6 @@ namespace HR
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRoleService, UserRoleService>();
             services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
-
             //Department
             services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             services.AddScoped<IUnitOfWork,DepartmentUnitOfWork>();

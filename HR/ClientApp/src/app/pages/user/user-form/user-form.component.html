@@ -137,6 +137,7 @@
                 fullWidth
                 fieldSize="medium"
                 [status]="mobile.dirty ? (mobile.invalid  ? 'danger' : 'success') : ''"
+                required
                 [attr.aria-invalid]="mobile.invalid && mobile.touched ? true : null">
           <ng-container *ngIf="mobile.invalid && mobile.touched">
             <p class="caption status-danger" *ngIf="mobile.errors?.required">
@@ -158,6 +159,7 @@
                   fullWidth
                   fieldSize="medium"
                   [status]="address.dirty ? (address.invalid  ? 'danger' : 'success') : ''"
+                  required
                   [attr.aria-invalid]="address.invalid && address.touched ? true : null">
             <ng-container *ngIf="address.invalid && address.touched">
               <p class="caption status-danger" *ngIf="address.errors?.required">

@@ -26,7 +26,7 @@ namespace HR.Services
         }
         public override async Task<QueryResult<Branch>> GetAllAsync()
         {
-            return await this.repository.GetAllAsync(x => !x.IsDeleted);
+         return await this.repository.GetAllAsync(x => !x.IsDeleted, null, null, x => x.Company);
         }
     }
 }

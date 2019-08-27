@@ -21,8 +21,10 @@ namespace HR.Mapping
             CreateMap<Department,DepartmentSaveModel>();
             CreateMap<Company,CompanyModel>();
             CreateMap<Company,CompanySaveModel>();
-            CreateMap<Branch,BranchModel>();
+            CreateMap<Branch,BranchModel>()
+            .ForMember(dest => dest.Company, opt => opt.MapFrom(u => new KeyValuePairModel(){Id=u.Company.Id,Name=u.Company.CompanyName}));;
             CreateMap<Branch,BranchSaveModel>();
+
 
             // Model To Domain
             CreateMap<UserQueryModel, UserQuery>();

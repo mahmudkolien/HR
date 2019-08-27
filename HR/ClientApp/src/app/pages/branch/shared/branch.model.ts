@@ -1,9 +1,10 @@
 import { IEntity } from '../../shared/entity.model';
 import { IAuditable } from '../../shared/auditable.model';
 import { ICompany } from '../../company/shared/company.model';
+import { IKeyValuePair } from '../../shared/key-value-pair.model';
 
 export interface IBranch extends IEntity, IAuditable {
-     company:ICompany;
+     company:IKeyValuePair;
      branchName :string;
      address :string;
      phoneNo:string;

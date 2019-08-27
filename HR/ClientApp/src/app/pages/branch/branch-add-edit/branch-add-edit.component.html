@@ -1,0 +1,50 @@
+<form (ngSubmit)="onSubmit()" novalidate>
+  <nb-card>
+    <nb-card-header>Branch</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="branchName">Branch Name</label>
+                <input name="branchName" id="branchName" class="form-control" [(ngModel)]="branch.branchName"  required #branchName="ngModel"/>
+                <div class="text-danger" *ngIf="branchName.touched && !branchName.valid">Please Enter Name.</div>
+            </div>
+            <div class="form-group">
+              <label for="companyId">Company</label>
+              <select name="companyId" id="companyId" class="form-control" [(ngModel)]="branch.companyId"  required #companyId="ngModel">
+                <option value="">Choose--</option>
+                  <option *ngFor="let company of companies.items" value="{{company.id}}">
+                      {{company.companyName}}
+                  </option>
+              </select>
+              <div class="text-danger" *ngIf="companyId.touched && !companyId.valid">Please Select Company.</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="phoneNo">Phone No</label>
+                <input name="phoneNo" id="phoneNo" class="form-control" [(ngModel)]="branch.phoneNo"   #phoneNo="ngModel"/>
+                <div class="text-danger" *ngIf="phoneNo.touched && !phoneNo.valid">Please Enter Phone.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input name="email" id="email" class="form-control" [(ngModel)]="branch.email"   #email="ngModel"/>
+                <div class="text-danger" *ngIf="email.touched && !email.valid">Please Enter E-mail.</div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea name="address" id="address" class="form-control" [(ngModel)]="branch.address"   #address="ngModel"></textarea>
+    
+            </div>
+          </div>
+      </div>
+        
+ 
+      
+    </nb-card-body>
+    <nb-card-footer>
+      <button class="btn btn-danger btn-sm" (click)="dismiss()">Cancel</button>
+      <button class="btn btn-success btn-sm pull-right" type="submit">Save</button>
+    </nb-card-footer>
+  </nb-card>
+  </form>

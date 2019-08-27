@@ -12,7 +12,7 @@ namespace HR.Models
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedById { get; set; }
         public Guid? UpdatedById { get; set; }
-        public CompanyModel Company{get;set;}
+        public KeyValuePairModel Company{get;set;}
         public string BranchName { get; set; }
         public string Address { get; set; }
         public string PhoneNo{get;set;}

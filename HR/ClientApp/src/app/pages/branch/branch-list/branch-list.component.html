@@ -1,3 +1,44 @@
-<p>
-  branch-list works!
-</p>
+<nb-card>
+  <nb-card-header>
+      <div class="d-flex">
+        Branch
+        <div class="ml-auto">
+          <button  size="tiny" shape="rectangle" (click)="open()" status="primary">
+            <nb-icon icon="plus-square-outline" title="New Branch"></nb-icon> Add
+          </button>
+        </div>
+      </div>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-sm table-bordered table-hover">
+        <thead>
+          <tr>
+            
+            <th>Branch Name</th>
+            <th>Company</th>
+            <th>Created On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr *ngFor="let branch of queryResult.items">
+            <td>
+                {{branch.branchName}}
+            </td>
+            <td>
+                {{branch.company.name}}
+            </td>
+            <td>
+                {{branch.createdOn|date }}
+            </td>
+            <td>
+                <button class="btn btn-sm btn-success"  (click)="edit(department)"><i class="fa fa-edit"></i></button>
+                <button  class="btn btn-sm btn-danger" (click)="delete(department.id)"><i class="fa fa-trash"></i></button>
+            </td>
+         </tr>
+        </tbody>
+      </table>
+  </nb-card-body>
+
+</nb-card>
+

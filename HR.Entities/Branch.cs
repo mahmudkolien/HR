@@ -9,6 +9,7 @@ namespace HR.Entities
     public class Branch:AuditableEntity
     {
         public Guid CompanyId {get;set;}
+         [ForeignKey("CompanyId")]
         public Company Company { get; set; }
         public string BranchName { get; set; }
         public string Address { get; set; }

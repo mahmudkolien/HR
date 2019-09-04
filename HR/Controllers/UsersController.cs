@@ -9,6 +9,7 @@ using HR.Entities.NotMapped;
 using HR.Models;
 using HR.Models.QueryModels;
 using HR.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -24,7 +25,12 @@ namespace HR.Controllers
         private readonly PhotoSettings photoSettings;
         private readonly IPhotoStorage photoStorage;
 
-        public UsersController(IHostingEnvironment host, IOptionsSnapshot<PhotoSettings> options, IPhotoStorage photoStorage, IUserService userService, IMapper mapper)
+        public UsersController(
+            IHostingEnvironment host, 
+            IOptionsSnapshot<PhotoSettings> options, 
+            IPhotoStorage photoStorage, 
+            IUserService userService, 
+            IMapper mapper)
         {
             this.userService = userService;
             this.mapper = mapper;

@@ -7,7 +7,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
@@ -36,6 +36,8 @@ import { RequestPasswordComponent } from './auth/request-password/request-passwo
 
 import { AppErrorHandler } from './app.error-handler';
 import { HttpModule } from '@angular/http';
+import { JwtInterceptor } from './app.jwt-interceptor';
+import { ErrorInterceptor } from './app.error-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import { HttpModule } from '@angular/http';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    AuthModule,
+    // AuthModule,
 
     ThemeModule.forRoot(),
     NbSidebarModule.forRoot(),
@@ -61,7 +63,9 @@ import { HttpModule } from '@angular/http';
     CoreModule.forRoot(),
   ],
   providers: [
-    {provide: ErrorHandler, useClass: AppErrorHandler},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: AppErrorHandler },
     Config,
   ],
   bootstrap: [AppComponent],

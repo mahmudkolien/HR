@@ -17,6 +17,8 @@ namespace HR.Mapping
             CreateMap<User, SaveUserModel>()
                 .ForMember(dest => dest.UserRoleId, opt => opt.MapFrom(u => u.RoleId));
             CreateMap<UserRole, UserRoleModel>();
+            CreateMap<User, AuthenticateUserModel>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(u => u.UserRole.RoleName));
             
             // Model To Domain
             CreateMap<UserQueryModel, UserQuery>();

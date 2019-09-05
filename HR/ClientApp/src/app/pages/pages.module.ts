@@ -1,3 +1,4 @@
+import { AuthModule } from './../auth/auth.module';
 import { Shared } from './shared/shared';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
@@ -31,6 +32,7 @@ import { ViewUserComponent } from './user/view-user/view-user.component';
   imports: [
     PagesRoutingModule,
     LayoutModule,
+    // AuthModule,
     NbMenuModule,
     DashboardModule,
     MiscellaneousModule,

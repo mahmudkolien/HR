@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 
 namespace HR.Controllers
 {
+    [Authorize]
     [Route("/api/users")]
     public class UsersController : Controller
     {

@@ -39,8 +39,8 @@ namespace HR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("login")]
-        public async Task<IActionResult> Login([FromQuery] LoginModel model)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -22,6 +22,7 @@ import {
   NbDialogModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LayoutModule } from '../pages/layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     AuthRoutingModule,
+    LayoutModule,
     NbInputModule,
     NbCardModule,
     NbButtonModule,

@@ -5,9 +5,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MiscellaneousRoutingModule } from './miscellaneous-routing.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NbCardModule, NbButtonModule } from '@nebular/theme';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
-  declarations: [MiscellaneousComponent, NotFoundComponent],
+  declarations: [MiscellaneousComponent, NotFoundComponent, UnauthorizedComponent],
   imports: [
     ThemeModule,
     NbCardModule,

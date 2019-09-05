@@ -3,9 +3,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IAuthUser, ILoginUser } from './auth.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 
@@ -13,7 +14,9 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<IAuthUser>;
   public currentUser: Observable<IAuthUser>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+      private http: HttpClient,
+      private router: Router) {
       this.currentUserSubject = new BehaviorSubject<IAuthUser>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -23,7 +26,7 @@ export class AuthService {
   }
 
   login(login: ILoginUser) {
-      return this.http.post(this.authEndpoint, login)
+      return this.http.post(this.authEndpoint + '/login', login)
           .pipe(map((authUser: IAuthUser) => {
               // login successful if there's a jwt token in the response
               if (authUser && authUser.token) {
@@ -40,5 +43,6 @@ export class AuthService {
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
       this.currentUserSubject.next(null);
+      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.url } });
   }
 }

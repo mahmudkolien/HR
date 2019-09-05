@@ -6,6 +6,8 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
+import { Role } from '../shared/Role';
+import { AuthGuard } from '../app.auth-guard';
 
 const routes: Routes = [{
   path: '',
@@ -22,10 +24,14 @@ const routes: Routes = [{
     {
       path: 'user/new',
       component: UserFormComponent,
+      canActivate: [AuthGuard],
+      data: { roles: [Role.Admin] },
     },
     {
       path: 'user/edit/:id',
       component: UserFormComponent,
+      canActivate: [AuthGuard],
+      data: { roles: [Role.SuperAdmin] },
     },
     {
       path: 'miscellaneous',

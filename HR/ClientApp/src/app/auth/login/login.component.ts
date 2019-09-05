@@ -1,11 +1,13 @@
+import { AuthService } from './../shared/auth.service';
 import { ILoginUser } from './../shared/auth.model';
 import { Component, OnInit } from '@angular/core';
 import { IAuthUser } from '../shared/auth.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
@@ -14,16 +16,51 @@ export class LoginComponent implements OnInit {
   errors: string[] = [];
   showMessages: any = { success: false, error: false };
   messages: string[] = [];
+  returnUrl: string;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
+
+      // redirect to home if already logged in
+      if (this.authService.currentUserValue) {
+          this.router.navigate(['/']);
+      }
+    this.resetForm();
+  }
 
   ngOnInit() {
-    // tslint:disable-next-line: no-console
-    console.log('call login');
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  resetForm(form?) {
+    if (form)
+      form.resetForm();
+
+    this.user = {
+      userName: '',
+      password: '',
+      rememberMe: false,
+    };
   }
 
   login() {
-    // tslint:disable-next-line: no-console
-    console.log(this.user);
+    this.showMessages.error = false;
+    this.errors = [];
+    this.authService.login(this.user).subscribe(
+      data => {
+        this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        this.showMessages.error = true;
+        this.errors.push(error.error);
+        this.user.password = '';
+        // tslint:disable-next-line:no-console
+        console.log(error);
+      },
+    );
   }
 }

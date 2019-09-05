@@ -4,11 +4,13 @@ import { NbSidebarService, NbMenuService, NbThemeService, NbMediaBreakpointsServ
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { takeUntil, map } from 'rxjs/operators';
+import { AuthService } from '../../../auth/shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
@@ -37,14 +39,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [{ title: 'Login' }];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -68,6 +72,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+
+      const user = this.authService.currentUserValue;
+      if (user) {
+        this.userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+        this.user = {
+          name: user.fullName,
+          picture: (user.imageFile ? '/uploads/' + user.imageFile : '/assets/images/avatar.png'),
+        };
+      } else {
+        this.user = {
+          name: 'No User',
+          picture: '/assets/images/avatar.png',
+        };
+      }
+
+      this.menuService.onItemClick().subscribe(( event ) => {
+        this.onItemSelection(event.item.title);
+      });
   }
 
   ngOnDestroy() {
@@ -89,6 +112,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  onItemSelection( title ) {
+    if ( title === 'Log out' ) {
+      // tslint:disable-next-line:no-console
+      console.log('Log out Clicked ');
+      this.authService.logout();
+    } else if ( title === 'Profile' ) {
+      // tslint:disable-next-line:no-console
+      console.log('Profile Clicked ');
+    } else if ( title === 'Login' ) {
+      // tslint:disable-next-line:no-console
+      console.log('Login ');
+      this.router.navigate(['/auth/login']);
+    }
   }
 
 }

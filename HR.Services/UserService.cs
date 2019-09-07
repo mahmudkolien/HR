@@ -32,6 +32,7 @@ namespace HR.Services
 
         public override async Task<Guid> UpdateAsync(User entity)
         {
+            entity.UserRole = null;
             entity.UpdatedOn = DateTime.Now;
             return  await base.UpdateAsync(entity);
         }

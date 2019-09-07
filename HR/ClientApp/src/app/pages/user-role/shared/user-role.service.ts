@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ISaveUserRole } from './user-role.model';
 import { Guid } from 'guid-typescript';
-import { Shared } from '../../shared/shared';
+import { Shared } from '../../../shared/shared';
 
 @Injectable({
   providedIn: 'root'

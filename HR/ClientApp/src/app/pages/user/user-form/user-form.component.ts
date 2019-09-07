@@ -1,4 +1,4 @@
-import { Shared } from './../../shared/shared';
+import { Shared } from '../../../shared/shared';
 import { messages } from './../../../ngx-pages/extra-components/chat/messages';
 
 import { Component, OnInit, ChangeDetectorRef, ErrorHandler, ViewChild, ElementRef } from '@angular/core';

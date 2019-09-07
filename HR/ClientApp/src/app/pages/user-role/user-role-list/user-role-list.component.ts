@@ -5,7 +5,7 @@ import { IQueryResult } from '../../shared/query-result.model';
 import { UserRoleService } from '../shared/user-role.service';
 import { Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { Shared } from '../../shared/shared';
+import { Shared } from '../../../shared/shared';
 import { ViewUserRoleComponent } from '../view-user-role/view-user-role.component';
 import { DeleteUserRoleComponent } from '../delete-user-role/delete-user-role.component';
 

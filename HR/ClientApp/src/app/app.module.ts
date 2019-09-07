@@ -41,6 +41,7 @@ import { AppErrorHandler } from './app.error-handler';
 import { HttpModule } from '@angular/http';
 import { JwtInterceptor } from './app.jwt-interceptor';
 import { ErrorInterceptor } from './app.error-interceptor';
+import { Shared } from './shared/shared';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ErrorInterceptor } from './app.error-interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     Config,
+    Shared,
   ],
   bootstrap: [AppComponent],
 })

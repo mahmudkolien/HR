@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { IUser } from '../shared/user.model';
 import { IQueryResult } from '../../shared/query-result.model';
-import { Shared } from '../../shared/shared';
+import { Shared } from '../../../shared/shared';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
 
 @Component({

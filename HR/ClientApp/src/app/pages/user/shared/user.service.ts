@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { Injectable } from '@angular/core';
 import { map, catchError, retry } from 'rxjs/operators';
 import { IUser, ISaveUser } from './user.model';
-import { Shared } from '../../shared/shared';
+import { Shared } from '../../../shared/shared';
 import { throwError } from 'rxjs';
 import { Guid } from 'guid-typescript';
 

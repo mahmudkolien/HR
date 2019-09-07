@@ -1,6 +1,6 @@
 import { UserRoleModule } from './user-role/user-role.module';
 import { AuthModule } from './../auth/auth.module';
-import { Shared } from './shared/shared';
+import { Shared } from '../shared/shared';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 
@@ -45,7 +45,6 @@ import { UserRoleComponent } from './user-role/user-role.component';
     PagesComponent,
   ],
   providers: [
-    Shared,
   ],
 })
 export class PagesModule {

@@ -2,12 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ISaveUserRole, IUserRole } from '../shared/user-role.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Shared } from '../../shared/shared';
+import { Shared } from '../../../shared/shared';
 import { UserRoleService } from '../shared/user-role.service';
 import { NbToastrService } from '@nebular/theme';
 import { ISaveUserRolePermission } from '../shared/user-role-permission.model';
 import { UserRolePermissionData } from '../shared/user-role-permission-data';
-import * as _ from 'underscore';
+// import * as _ from 'underscore';
 
 @Component({
   selector: 'app-user-role-form',
@@ -86,7 +86,8 @@ export class UserRoleFormComponent implements OnInit {
       id: userRole.id,
       roleName: userRole.roleName,
       isDeleted: userRole.isDeleted,
-      userRolePermissions: _.pluck(userRole.userRolePermissions, 'name'),
+      // userRolePermissions: _.pluck(userRole.userRolePermissions, 'name'),
+      userRolePermissions: this.shared.getMapValue(userRole.userRolePermissions, 'name'),
     };
   }
 

@@ -51,10 +51,10 @@ namespace HR.Controllers
 
             if (userModel.InputFile!=null)
             {
-                if (userModel.InputFile == null) return BadRequest("Null file");
-                if (userModel.InputFile.Length == 0) return BadRequest("Empty file");
-                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest("Max file size exceeded");
-                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest("Invalid file type.");
+                if (userModel.InputFile == null) return BadRequest(new { Message = "Null file"});
+                if (userModel.InputFile.Length == 0) return BadRequest(new { Message = "Empty file"});
+                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest(new { Message = "Max file size exceeded"});
+                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest(new { Message = "Invalid file type."});
                 var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
                 var image = await photoStorage.StorePhoto(uploadsFolderPath, userModel.InputFile);
                 user.ImageFile = image;
@@ -89,10 +89,10 @@ namespace HR.Controllers
 
             if (userModel.InputFile!=null)
             {
-                if (userModel.InputFile == null) return BadRequest("Null file");
-                if (userModel.InputFile.Length == 0) return BadRequest("Empty file");
-                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest("Max file size exceeded");
-                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest("Invalid file type.");
+                if (userModel.InputFile == null) return BadRequest(new { Message = "Null file"});
+                if (userModel.InputFile.Length == 0) return BadRequest(new { Message = "Empty file"});
+                if (userModel.InputFile.Length > photoSettings.MaxBytes) return BadRequest(new { Message = "Max file size exceeded"});
+                if (!photoSettings.IsSupported(userModel.InputFile.FileName)) return BadRequest(new { Message = "Invalid file type."});
                 var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
                 var image = await photoStorage.StorePhoto(uploadsFolderPath, userModel.InputFile);
                 user.ImageFile = image;

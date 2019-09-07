@@ -47,7 +47,7 @@ namespace HR.Controllers
 
             if(!(await this.authService.IsValidUser(model.UserName, model.Password)))
             {
-                return BadRequest("Username or password is invalid");
+                return BadRequest(new { Message = "Username or password is invalid"});
             }
 
             var user = await this.authService.GetByUserNameAsync(model.UserName);
@@ -83,7 +83,7 @@ namespace HR.Controllers
         [HttpGet("superadmin")]
         public  async Task<IActionResult> GetSuperAdminData()
         {
-            return BadRequest("super admin authorize");
+            return BadRequest(new { Message = "super admin authorize"});
         }
 
     }

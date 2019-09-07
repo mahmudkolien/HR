@@ -1,3 +1,4 @@
+import { AuthLayoutModule } from './layout/layout.module';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,7 +23,6 @@ import {
   NbDialogModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LayoutModule } from '../pages/layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { LayoutModule } from '../pages/layout/layout.module';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    LayoutModule,
+    AuthLayoutModule,
     NbInputModule,
     NbCardModule,
     NbButtonModule,

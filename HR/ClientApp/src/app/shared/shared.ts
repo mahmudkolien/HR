@@ -1,4 +1,6 @@
 
+import * as _ from 'underscore';
+
 export class Shared {
 
   public readonly PAGE_SIZE = 5;
@@ -33,5 +35,13 @@ export class Shared {
     }
 
     return formData;
+  }
+
+  getMapValue(collection: Array<any>, property: string) {
+    return _.pluck(collection, property);
+  }
+
+  hasMatchValue(collection1: Array<any>, collection2: Array<any>) {
+    return !_.isEmpty(_.intersection(collection1, collection2));
   }
 }

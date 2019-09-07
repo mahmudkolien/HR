@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.showMessages.error = true;
-        this.errors.push(error.error);
+        this.errors.push(error.error.message || error.message);
         this.user.password = '';
         // tslint:disable-next-line:no-console
         console.log(error);

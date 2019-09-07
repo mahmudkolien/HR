@@ -29,7 +29,7 @@ export class AppErrorHandler implements ErrorHandler {
 
 
       this.ngZone.run(() => {
-        this.toastrService.danger(error.error.message || error.error || error.message, 'Error!');
+        this.toastrService.danger(error.error.message || error.message, 'Error!');
       });
 
       if (!isDevMode()) {

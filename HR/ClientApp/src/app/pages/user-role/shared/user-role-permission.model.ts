@@ -8,7 +8,6 @@ export interface IUserRolePermission extends IEntity {
 export interface ISaveUserRolePermission {
     permissionName: string;
     permissionCategory: string;
-    isChecked: boolean;
 }
 
 

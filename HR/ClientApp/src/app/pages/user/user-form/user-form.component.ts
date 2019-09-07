@@ -1,7 +1,5 @@
 import { Shared } from './../../shared/shared';
 import { messages } from './../../../ngx-pages/extra-components/chat/messages';
-import { UserRoleService } from './../shared/user-role.service';
-import { IUserRole } from './../shared/user-role.model';
 
 import { Component, OnInit, ChangeDetectorRef, ErrorHandler, ViewChild, ElementRef } from '@angular/core';
 import { ISaveUser, IUser } from '../shared/user.model';
@@ -11,6 +9,8 @@ import { NbToastrService } from '@nebular/theme';
 import { throwError } from 'rxjs';
 import { IQueryResult } from '../../shared/query-result.model';
 import { switchMap } from 'rxjs/operators';
+import { IUserRole } from '../../user-role/shared/user-role.model';
+import { UserRoleService } from '../../user-role/shared/user-role.service';
 
 @Component({
   selector: 'app-user-form',

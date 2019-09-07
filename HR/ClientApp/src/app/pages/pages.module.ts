@@ -1,3 +1,4 @@
+import { UserRoleModule } from './user-role/user-role.module';
 import { AuthModule } from './../auth/auth.module';
 import { Shared } from './shared/shared';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -27,6 +28,7 @@ import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { ViewUserComponent } from './user/view-user/view-user.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { ViewUserComponent } from './user/view-user/view-user.component';
     DashboardModule,
     MiscellaneousModule,
     UserModule,
+    UserRoleModule,
   ],
   declarations: [
     PagesComponent,

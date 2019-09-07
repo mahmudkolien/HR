@@ -7,16 +7,15 @@ using HR.Entities;
 
 namespace HR.Models
 {
-    public class UserRoleModel
+    public class SaveUserRoleModel
     {
         public Guid Id { get; set; }
         public string RoleName { get; set; }
-        public int? Status { get; set; }
-        public ICollection<KeyValuePairModel> UserRolePermissions { get; set; }
+        public ICollection<string> UserRolePermissions { get; set; }
 
-        public UserRoleModel()
+        public SaveUserRoleModel()
         {
-            this.UserRolePermissions = new Collection<KeyValuePairModel>();
+            this.UserRolePermissions = new Collection<string>();
         }
     }
 }

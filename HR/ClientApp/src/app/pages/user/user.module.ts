@@ -1,4 +1,4 @@
-import { UserRoleService } from './shared/user-role.service';
+
 import { FormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
@@ -26,6 +26,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { UserRoleService } from '../user-role/shared/user-role.service';
 
 @NgModule({
   declarations: [

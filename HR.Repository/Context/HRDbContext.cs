@@ -7,6 +7,7 @@ namespace HR.Repository.Context
     {
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRolePermission> UserRolePermissions { get; set; }
 
         public HRDbContext(DbContextOptions<HRDbContext> options) : base(options)
         {

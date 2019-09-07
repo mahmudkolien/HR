@@ -1,3 +1,4 @@
+import { RolePermission } from './../shared/user-role-permission';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -6,8 +7,9 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
-import { Role } from '../shared/Role';
 import { AuthGuard } from '../app.auth-guard';
+import { UserRoleFormComponent } from './user-role/user-role-form/user-role-form.component';
+import { UserRoleListComponent } from './user-role/user-role-list/user-role-list.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,18 +22,38 @@ const routes: Routes = [{
     {
       path: 'user',
       component: UserListComponent,
+      canActivate: [AuthGuard],
+      // data: { roles: [RolePermission.UserView] },
     },
     {
       path: 'user/new',
       component: UserFormComponent,
       canActivate: [AuthGuard],
-      data: { roles: [Role.Admin] },
+      // data: { roles: [RolePermission.UserCreate] },
     },
     {
       path: 'user/edit/:id',
       component: UserFormComponent,
       canActivate: [AuthGuard],
-      data: { roles: [Role.SuperAdmin] },
+      // data: { roles: [RolePermission.UserEdit] },
+    },
+    {
+      path: 'userrole',
+      component: UserRoleListComponent,
+      canActivate: [AuthGuard],
+      // data: { roles: [RolePermission.UserRoleView] },
+    },
+    {
+      path: 'userrole/new',
+      component: UserRoleFormComponent,
+      canActivate: [AuthGuard],
+      // data: { roles: [RolePermission.UserRoleCreate] },
+    },
+    {
+      path: 'userrole/edit/:id',
+      component: UserRoleFormComponent,
+      canActivate: [AuthGuard],
+      // data: { roles: [RolePermission.UserRoleEdit] },
     },
     {
       path: 'miscellaneous',

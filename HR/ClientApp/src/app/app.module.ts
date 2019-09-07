@@ -1,3 +1,5 @@
+import { PipesModule } from './pipes/pipes.module';
+import { GroupByPipe } from './pipes/group-by.pipe';
 import { RouterModule } from '@angular/router';
 
 /**
@@ -49,6 +51,7 @@ import { ErrorInterceptor } from './app.error-interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    PipesModule,
     // AuthModule,
 
     ThemeModule.forRoot(),

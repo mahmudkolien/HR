@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <form (ngSubmit)="onFormSubmit(form)" #form="ngForm" class="form-horizontal">
+      <nb-card>
+        <nb-card-header>User Role Form</nb-card-header>
+
+
+        <nb-card-body>
+
+          <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+            <p class="alert-title"><b>Error!</b></p>
+            <ul class="alert-message-list">
+              <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+            </ul>
+          </nb-alert>
+
+          <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+            <p class="alert-title"><b>Success!</b></p>
+            <ul class="alert-message-list">
+              <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+            </ul>
+          </nb-alert>
+          
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="form-group row">
+                <label class="label col-sm-3 form-control-label required-label" for="roleName">Role Name</label>
+                <div class="col-sm-9">
+                  <input nbInput [(ngModel)]="userRole.roleName" #roleName="ngModel" id="roleName" name="roleName"
+                    placeholder="Role Name" autofocus fullWidth fieldSize="medium"
+                    [status]="roleName.dirty ? (roleName.invalid  ? 'danger' : 'success') : ''" required
+                    [attr.aria-invalid]="roleName.invalid && roleName.touched ? true : null">
+                  <ng-container *ngIf="roleName.invalid && roleName.touched">
+                    <p class="caption status-danger" *ngIf="roleName.errors?.required">
+                      Role name is required!
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div>Role Permissions</div>
+                <div class="row">
+                  <div *ngFor="let permissionGroup of rolePermissions | groupBy:'permissionCategory'" class="col-md-4">
+                    <div>{{permissionGroup.key | replaceWith:'_'}}</div>
+                    <div>
+                      <div *ngFor="let permission of permissionGroup.value">
+                        <nb-checkbox (change)="onRolePermissionToggle(permission.permissionName, $event)" [checked]="userRole.userRolePermissions.includes(permission.permissionName)">{{permission.permissionName | replaceWith:'_'}}</nb-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex">
+                <button type="button" [routerLink]="['/pages/userrole']" nbButton status="default" size="medium">
+                  Cancel
+                </button>
+
+                <button type="submit" class="ml-auto" nbButton hero status="primary" size="medium"
+                  [disabled]="submitted || !form.valid">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </nb-card-footer>
+
+      </nb-card>
+
+    </form>
+
+  </div>
+</div>

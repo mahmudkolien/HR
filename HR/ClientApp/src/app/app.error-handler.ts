@@ -35,6 +35,7 @@ export class AppErrorHandler implements ErrorHandler {
       if (!isDevMode()) {
         console.error(error);
       } else {
+        console.error(error);
         throw error;
       }
 

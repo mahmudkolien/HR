@@ -1,4 +1,5 @@
 using HR.Entities.Core;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HR.Entities
@@ -8,5 +9,6 @@ namespace HR.Entities
         [Required]
         public string RoleName { get; set; }
         public int? Status { get; set; }
+        public ICollection<UserRolePermission> UserRolePermissions { get; set; }
     }
 }

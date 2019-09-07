@@ -8,8 +8,9 @@ namespace HR.Repository.Contracts
 {
     public interface IUserRoleRepository : IRepository<UserRole>
     {
-        Task DeleteRolePermissionsFromDBAsync(ICollection<UserRolePermission> rolePermissions);
+        Task DeleteRolePermissionsFromDBAsync(IEnumerable<UserRolePermission> rolePermissions);
         Task DeleteRolePermissionsFromDBByRoleIdAsync(Guid id);
-        Task AddRolePermissionsAsync(ICollection<UserRolePermission> rolePermissions);
+        Task AddRolePermissionsAsync(IEnumerable<UserRolePermission> rolePermissions);
+        Task<IEnumerable<UserRolePermission>> GetRolePermissionsByRoleIdAsync(Guid id);
     }
 }

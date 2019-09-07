@@ -57,13 +57,19 @@ namespace HR.Controllers
              // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.appSettings.SecretKey);
+            var claims = new List<Claim>() 
+            {
+                new Claim(ClaimTypes.Name, authUser.Id.ToString())
+            };
+            
+            foreach (var permission in authUser.UserRolePermissions)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, permission));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
-                {
-                    new Claim(ClaimTypes.Name, authUser.Id.ToString()),
-                    new Claim(ClaimTypes.Role, authUser.Role)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -73,14 +79,7 @@ namespace HR.Controllers
             return Ok(authUser);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet("admin")]
-        public  async Task<IActionResult> GetAdminData()
-        {
-            return BadRequest("admin authorize");
-        }
-
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = RolePermission.SuperAdmin)]
         [HttpGet("superadmin")]
         public  async Task<IActionResult> GetSuperAdminData()
         {

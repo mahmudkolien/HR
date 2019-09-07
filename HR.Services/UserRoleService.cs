@@ -62,5 +62,10 @@ namespace HR.Services
         {
             return await this.repository.GetByIdAsync(id, x => x.UserRolePermissions);
         }
+
+        public Task<IEnumerable<UserRolePermission>> GetRolePermissionsByRoleIdAsync(Guid id)
+        {
+            return this.repository.GetRolePermissionsByRoleIdAsync(id);
+        }
     }
 }

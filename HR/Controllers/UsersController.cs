@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 namespace HR.Controllers
 {
     [Route("/api/users")]
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserService userService;
@@ -40,6 +41,7 @@ namespace HR.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserCreate)]
         public async Task<IActionResult> CreateUser([FromForm] SaveUserModel userModel)
         {
             if (!ModelState.IsValid)
@@ -68,6 +70,7 @@ namespace HR.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserEdit)]
         public async Task<IActionResult> UpdateUser(Guid id, [FromForm] SaveUserModel userModel)
         {
             if (!ModelState.IsValid)
@@ -105,6 +108,7 @@ namespace HR.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserDelete)]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await this.userService.GetByIdAsync(id);
@@ -118,6 +122,7 @@ namespace HR.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserView)]
         public async Task<IActionResult> GetUser(Guid id)
         {
             var user = await this.userService.GetByIdAsync(id);
@@ -131,6 +136,7 @@ namespace HR.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserView)]
         public async Task<QueryResultModel<UserModel>> GetUsers([FromQuery] UserQueryModel queryModel)
         {
             var query = mapper.Map<UserQueryModel, UserQuery>(queryModel);

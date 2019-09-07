@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using HR.Entities;
 
 namespace HR.Models
 {
@@ -19,7 +21,7 @@ namespace HR.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string ImageFile { get; set; }
-        public string Role { get; set; }
+        public IEnumerable<string> UserRolePermissions { get; set; }
         public string Token { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace HR.Mapping
             CreateMap<UserRole, SaveUserRoleModel>()
                 .ForMember(dest => dest.UserRolePermissions, opt => opt.MapFrom(x => x.UserRolePermissions.Select(y => y.Permission)));
             CreateMap<User, AuthenticateUserModel>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(u => u.UserRole.RoleName));
+                .ForMember(dest => dest.UserRolePermissions, opt => opt.MapFrom(u => u.UserRole.UserRolePermissions.Select(p => p.Permission)));
             
             // Model To Domain
             CreateMap<UserQueryModel, UserQuery>();

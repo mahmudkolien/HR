@@ -5,7 +5,7 @@ export interface IAuthUser {
     fullName: string;
     userName: string;
     email: string;
-    role: string;
+    userRolePermissions: string[];
     imageFile: string;
     token?: string;
 }

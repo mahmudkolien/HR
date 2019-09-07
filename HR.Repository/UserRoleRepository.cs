@@ -26,14 +26,19 @@ namespace HR.Repository
                 this.dbContext.UserRolePermissions.RemoveRange(rolePermissions);
         }
 
-        public async Task DeleteRolePermissionsFromDBAsync(ICollection<UserRolePermission> rolePermissions)
+        public async Task DeleteRolePermissionsFromDBAsync(IEnumerable<UserRolePermission> rolePermissions)
         {
             this.dbContext.UserRolePermissions.RemoveRange(rolePermissions);
         }
 
-        public async Task AddRolePermissionsAsync(ICollection<UserRolePermission> rolePermissions)
+        public async Task AddRolePermissionsAsync(IEnumerable<UserRolePermission> rolePermissions)
         {
             await this.dbContext.UserRolePermissions.AddRangeAsync(rolePermissions);
+        }
+
+        public async Task<IEnumerable<UserRolePermission>> GetRolePermissionsByRoleIdAsync(Guid id)
+        {
+            return await this.dbContext.UserRolePermissions.Where(x => x.RoleId == id).AsNoTracking().ToListAsync();
         }
     }
 }

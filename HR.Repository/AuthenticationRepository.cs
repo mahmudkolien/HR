@@ -22,7 +22,7 @@ namespace HR.Repository
         public async Task<User> GetByUserNameAsync(string userName)
         {
             return await this.dbContext.Users.Where(x => x.UserName==userName)
-                                .Include(y => y.UserRole).FirstOrDefaultAsync();
+                                .Include(y => y.UserRole).ThenInclude(p => p.UserRolePermissions).FirstOrDefaultAsync();
         }
 
         public async Task<bool> IsValidUser(string userName, string password)

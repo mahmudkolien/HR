@@ -16,10 +16,10 @@ namespace HR.Repository.Migrations
 
             // Seed User
             migrationBuilder.Sql("INSERT INTO Users (Id,FullName,UserName,Password,RoleId,Status,LockoutEnabled,IsDeleted)"+
-                " VALUES ('"+Guid.NewGuid()+"','Administrator','admin','12345',(SELECT Id FROM UserRoles WHERE RoleName = '"+
+                " VALUES ('"+Guid.NewGuid()+"','Administrator','admin','"+("12345").ToHash()+"',(SELECT Id FROM UserRoles WHERE RoleName = '"+
                 DefaultValue.UserRoleName.SuperAdmin+"'),'"+(int)EnumUserRoleStatus.SuperAdmin+"','false','false')");
             migrationBuilder.Sql("INSERT INTO Users (Id,FullName,UserName,Password,RoleId,Status,LockoutEnabled,IsDeleted)"+
-                " VALUES ('"+Guid.NewGuid()+"','Development','dev','12345',(SELECT Id FROM UserRoles WHERE RoleName = '"+
+                " VALUES ('"+Guid.NewGuid()+"','Development','dev','"+("12345").ToHash()+"',(SELECT Id FROM UserRoles WHERE RoleName = '"+
                 DefaultValue.UserRoleName.SuperAdmin+"'),'"+(int)EnumUserRoleStatus.SuperAdmin+"','false','false')");
 
         }

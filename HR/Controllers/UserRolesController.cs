@@ -7,11 +7,13 @@ using HR.Entities.NotMapped;
 using HR.Models;
 using HR.Models.QueryModels;
 using HR.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Controllers
 {
     [Route("/api/userroles")]
+    [Authorize]
     public class UserRolesController : Controller
     {
         private readonly IUserRoleService userRoleService;
@@ -24,6 +26,7 @@ namespace HR.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserRoleCreate)]
         public async Task<IActionResult> CreateUserRole([FromBody] SaveUserRoleModel userRoleModel)
         {
             if (!ModelState.IsValid)
@@ -41,6 +44,7 @@ namespace HR.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserRoleEdit)]
         public async Task<IActionResult> UpdateUserRole(Guid id, [FromBody] SaveUserRoleModel userRoleModel)
         {
             if (!ModelState.IsValid)
@@ -63,6 +67,7 @@ namespace HR.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserRoleDelete)]
         public async Task<IActionResult> DeleteUserRole(Guid id)
         {
             var userRole = await this.userRoleService.GetByIdAsync(id);
@@ -76,6 +81,7 @@ namespace HR.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserRoleView)]
         public async Task<IActionResult> GetUserRole(Guid id)
         {
             var userRole = await this.userRoleService.GetByIdAsync(id);
@@ -89,6 +95,7 @@ namespace HR.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RolePermission.SuperAdmin+","+RolePermission.UserRoleView)]
         public async Task<QueryResultModel<UserRoleModel>> GetUserRoles([FromQuery] UserRoleQueryModel queryModel)
         {
             var query = mapper.Map<UserRoleQueryModel, UserRoleQuery>(queryModel);

@@ -12,7 +12,7 @@ namespace HR.Models
         public Guid Id { get; set; }
         public string RoleName { get; set; }
         public int? Status { get; set; }
-        public ICollection<KeyValuePairModel> UserRolePermissions { get; set; }
+        public IEnumerable<KeyValuePairModel> UserRolePermissions { get; set; }
 
         public UserRoleModel()
         {

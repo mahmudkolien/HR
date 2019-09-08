@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       const user = this.authService.currentUserValue;
       if (user) {
-        this.userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+        this.userMenu = [{ title: 'Profile' }, { title: 'Change Password' }, { title: 'Log out' }];
         this.user = {
           name: user.fullName,
           picture: (user.imageFile ? '/uploads/' + user.imageFile : '/assets/images/avatar.png'),
@@ -116,15 +116,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onItemSelection( title ) {
     if ( title === 'Log out' ) {
-      // tslint:disable-next-line:no-console
-      console.log('Log out Clicked ');
-      this.authService.logout();
+      this.authService.logout().subscribe(data => {
+        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.url } });
+      });
+    } else if ( title === 'Change Password' ) {
+      this.router.navigate(['/auth/reset-password'], { queryParams: { returnUrl: this.router.url } });
     } else if ( title === 'Profile' ) {
-      // tslint:disable-next-line:no-console
-      console.log('Profile Clicked ');
     } else if ( title === 'Login' ) {
-      // tslint:disable-next-line:no-console
-      console.log('Login ');
       this.router.navigate(['/auth/login']);
     }
   }

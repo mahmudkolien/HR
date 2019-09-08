@@ -14,6 +14,7 @@ using HR.Models.QueryModels;
 using HR.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -50,7 +51,7 @@ namespace HR.Controllers
                 return BadRequest(new { Message = "Username or password is invalid"});
             }
 
-            var user = await this.authService.GetByUserNameAsync(model.UserName);
+            var user = await this.authService.GetByUserNameAsync(model.UserName, true);
 
             var authUser = mapper.Map<User, AuthenticateUserModel>(user);
 
@@ -77,6 +78,32 @@ namespace HR.Controllers
             authUser.Token = tokenHandler.WriteToken(token);
 
             return Ok(authUser);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("resetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(!(await this.authService.IsValidUser(model.UserName, model.Password)))
+            {
+                return BadRequest(new { Message = "Username or password is invalid"});
+            }
+
+            var isSucceed = await this.authService.ChangePasswordByUserNameAsync(model.UserName, model.NewPassword);
+
+            return Ok(isSucceed);
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var isSucceed = true;
+
+            return Ok(isSucceed);
         }
 
         [Authorize(Roles = RolePermission.SuperAdmin)]

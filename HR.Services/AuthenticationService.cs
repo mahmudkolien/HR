@@ -23,14 +23,35 @@ namespace HR.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<User> GetByUserNameAsync(string userName)
+        public async Task<User> GetByUserNameAsync(string userName, bool includeRelated = false)
         {
-            return await this.repository.GetByUserNameAsync(userName);
+            return await this.repository.GetByUserNameAsync(userName, includeRelated);
         }
 
         public async Task<bool> IsValidUser(string userName, string password)
         {
-            return await this.repository.IsValidUser(userName, password);
+            var user = await this.repository.GetByUserNameAsync(userName);
+            if (user==null)
+                return false;
+            var isValidUser = user.Password==password.ToHash();
+            if(!isValidUser)
+            {
+                user.AccessFailedCount = (user.AccessFailedCount??0) + 1;
+                await base.UpdateAsync(user);
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> ChangePasswordByUserNameAsync(string userName, string newPassword)
+        {
+            var user = await this.repository.GetByUserNameAsync(userName);
+            user.LastPassword = user.Password;
+            user.Password = newPassword.ToHash();
+            user.PasswordChangedCount = user.PasswordChangedCount??0 + 1;
+            user.LastPassChangeDate = DateTime.Now;
+            await base.UpdateAsync(user);
+            return true;
         }
     }
 }

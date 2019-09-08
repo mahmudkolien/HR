@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,16 +20,12 @@ namespace HR.Repository
             this.dbContext = dbContext;
         }
 
-        public async Task<User> GetByUserNameAsync(string userName)
+        public async Task<User> GetByUserNameAsync(string userName, bool includeRelated = false)
         {
-            return await this.dbContext.Users.Where(x => x.UserName==userName)
-                                .Include(y => y.UserRole).ThenInclude(p => p.UserRolePermissions).FirstOrDefaultAsync();
-        }
-
-        public async Task<bool> IsValidUser(string userName, string password)
-        {
-            return await this.dbContext.Users.Where(x => x.UserName==userName && x.Password==password.ToHash())
-                                .AnyAsync();
+            var query = this.dbContext.Users.AsQueryable();
+            if(includeRelated)
+                query = query.Include(y => y.UserRole).ThenInclude(p => p.UserRolePermissions);
+            return await query.AsNoTracking().FirstOrDefaultAsync(x => x.UserName.ToLower()==userName.ToLower());
         }
     }
 }

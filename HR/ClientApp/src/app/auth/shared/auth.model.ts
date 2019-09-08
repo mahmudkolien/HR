@@ -16,3 +16,10 @@ export interface ILoginUser {
     rememberMe: boolean;
 }
 
+export interface IResetPassword {
+    userName: string;
+    password: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+

@@ -14,11 +14,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return <any>next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
             if ([401, 403].indexOf(err.status) !== -1) {
-                // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
                 const currentUser = this.authService.currentUserValue;
                 const isLoggedIn = currentUser && currentUser.token;
                 if (!isLoggedIn) {
-                    this.authService.logout();
+                    this.authService.logout().subscribe(data => {
+                        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.url } });
+                      });
                 } else {
                     this.router.navigate(['/pages/miscellaneous/401']);
                 }

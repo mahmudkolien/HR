@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IAuthUser, ILoginUser } from './auth.model';
+import { IAuthUser, ILoginUser, IResetPassword } from './auth.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -26,23 +26,36 @@ export class AuthService {
   }
 
   login(login: ILoginUser) {
-      return this.http.post(this.authEndpoint + '/login', login)
-          .pipe(map((authUser: IAuthUser) => {
-              // login successful if there's a jwt token in the response
-              if (authUser && authUser.token) {
-                  // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify(authUser));
-                  this.currentUserSubject.next(authUser);
-              }
+    return this.http.post(this.authEndpoint + '/login', login)
+        .pipe(map((authUser: IAuthUser) => {
+            if (authUser && authUser.token) {
+                localStorage.setItem('currentUser', JSON.stringify(authUser));
+                this.currentUserSubject.next(authUser);
+            }
 
-              return authUser;
-          }));
+            return authUser;
+        }));
   }
 
   logout() {
-      // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
-      this.currentUserSubject.next(null);
-      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.url } });
+    return this.http.post(this.authEndpoint + '/logout', null)
+        .pipe(map((data) => {
+            if (data) {
+                localStorage.removeItem('currentUser');
+                this.currentUserSubject.next(null);
+            }
+            return data;
+        }));
+  }
+
+  resetPassword(reset: IResetPassword) {
+    return this.http.post(this.authEndpoint + '/resetPassword', reset)
+        .pipe(map((data) => {
+            if (data) {
+            localStorage.removeItem('currentUser');
+            this.currentUserSubject.next(null);
+            }
+            return data;
+        }));
   }
 }

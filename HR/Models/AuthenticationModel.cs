@@ -13,12 +13,22 @@ namespace HR.Models
         public string Password { get; set; }
         public bool RememberMe { get; set; }
     }
+
+    public class ResetPasswordModel
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string NewPassword { get; set; }
+    }
     
     public class AuthenticateUserModel
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string ImageFile { get; set; }
         public IEnumerable<string> UserRolePermissions { get; set; }

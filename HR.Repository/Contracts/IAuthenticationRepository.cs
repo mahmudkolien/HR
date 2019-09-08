@@ -6,7 +6,6 @@ namespace HR.Repository.Contracts
 {
     public interface IAuthenticationRepository : IRepository<User>
     {
-        Task<User> GetByUserNameAsync(string userName);
-        Task<bool> IsValidUser(string userName, string password);
+        Task<User> GetByUserNameAsync(string userName, bool includeRelated = false);
     }
 }

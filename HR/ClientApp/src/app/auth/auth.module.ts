@@ -23,6 +23,7 @@ import {
   NbDialogModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { EqualValidatorDirective } from '../directives/equal-validator.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { RouterModule } from '@angular/router';
     LogoutComponent,
     ResetPasswordComponent,
     RegisterComponent,
-    RequestPasswordComponent],
+    RequestPasswordComponent,
+    EqualValidatorDirective,
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,

@@ -47,9 +47,10 @@ namespace HR.Controllers
                 return BadRequest(ModelState);
 
             if(!(await this.authService.IsValidUser(model.UserName, model.Password)))
-            {
                 return BadRequest(new { Message = "Username or password is invalid"});
-            }
+
+            if((await this.authService.IsFirstLogin(model.UserName)))
+                return BadRequest(new { Status = ErrorStatus.FirstLogin, UserName = model.UserName, Message = "Please change password at first login."});
 
             var user = await this.authService.GetByUserNameAsync(model.UserName, true);
 

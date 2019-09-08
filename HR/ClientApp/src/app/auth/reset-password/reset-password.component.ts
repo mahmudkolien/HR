@@ -25,8 +25,21 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resetMessages();
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    const message = this.route.snapshot.queryParams['message'];
+    if (message) {
+      this.showMessages.error = true;
+      this.errors.push(message);
+    }
+  }
+
+  resetMessages() {
+    this.showMessages.success = false;
+    this.messages = [];
+    this.showMessages.error = false;
+    this.errors = [];
   }
 
   resetForm(form?) {
@@ -43,11 +56,13 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   confirm() {
-    this.showMessages.error = false;
-    this.errors = [];
+    this.resetMessages();
     this.authService.resetPassword(this.user).subscribe(
       data => {
-        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.returnUrl } });
+        this.router.navigate(['/auth/login'],
+        { queryParams: {
+          message: 'Your password has been successfully changed. Please login again.',
+          returnUrl: this.returnUrl } });
       },
       error => {
         this.showMessages.error = true;

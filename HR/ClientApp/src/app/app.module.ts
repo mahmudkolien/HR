@@ -1,3 +1,4 @@
+import { EqualValidatorDirective } from './directives/equal-validator.directive';
 import { PipesModule } from './pipes/pipes.module';
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { RouterModule } from '@angular/router';

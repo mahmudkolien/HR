@@ -53,5 +53,11 @@ namespace HR.Services
             await base.UpdateAsync(user);
             return true;
         }
+
+        public async Task<bool> IsFirstLogin(string userName)
+        {
+            var user = await this.repository.GetByUserNameAsync(userName);
+            return user.PasswordChangedCount.HasValue ? user.PasswordChangedCount.Value > 0 ? false : true : true;
+        }
     }
 }

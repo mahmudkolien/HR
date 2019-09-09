@@ -2,8 +2,7 @@ import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
-  selector: '[validateEqual]',
+  selector: '[appEqualValidator]',
   providers: [{
         provide: NG_VALIDATORS,
         useExisting: EqualValidatorDirective,
@@ -11,21 +10,12 @@ import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms';
     }],
 })
 export class EqualValidatorDirective implements Validator {
-
-  constructor() { }
-
-  @Input() validateEqual: string;
-
+  @Input() appEqualValidator: string;
   validate(control: AbstractControl): {[key: string]: any} | null {
-
-    const controlToCompare = control.parent.get(this.validateEqual);
-
-    if (controlToCompare && controlToCompare !== control.value) {
-      return {'validateEqual': true};
+    const controlToCompare = control.parent.get(this.appEqualValidator);
+    if (controlToCompare && controlToCompare.value !== control.value) {
+      return {'notEqual': true};
     }
-
     return null;
-
   }
-
 }
